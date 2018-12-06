@@ -1,4 +1,4 @@
-const base_url = "http://127.0.0.1:3000";
+const base_url = "http://127.0.0.1:8000";
 
 var users_url = "/users";
 var books_url = '/books';

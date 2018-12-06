@@ -1,19 +1,18 @@
+<!-- layout.njk-->
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Library Users</title>
-  <style>
-    body {
-      width: 80vw;
-      margin: 0 auto;
-    }
-  </style>
+  <title>Library Homepage</title>
+  <link rel="stylesheet" href="css/styles.css">
 </head>
-
 <body>
+
+  <!-- You write code for this content block in another file -->
+  
+<!-- Adds the navigation partial -->
+<!-- navigation.nunjucks -->
   <nav>
     <ul>
       <li><a href="index.html">Home</a></li>
@@ -24,8 +23,10 @@
       <li><a href="#">Add new book</a></li>
       <li><a href="#">Add new user</a></li>
     </ul>
+
   </nav>
-  <div>
+
+<div>
     <input type="search" name="user-search" id="user-search" placeholder="I'm looking for...">
     <input type="submit" value="Search">
     <button>Add new user</button>
@@ -34,7 +35,8 @@
   <h3>All users</h3>
   <ul class="show-all-users"> </ul>
 
-  <script src="scripts.js"></script>
-</body>
 
+
+ <script src="js/main.js"></script>
+</body>
 </html>
