@@ -101,17 +101,39 @@ function showResults(results) {
       // show results for user
       if ('name' in result){
         li.innerHTML = `${result.name}, ${result.barcode}, ${result.memberType}`;
+        const updateElm = document.createElement('a');
+        updateElm.innerHTML = '<i class="fas fa-pen-square"></i>';
+        updateElm.classList = "update-user";
+        
+        const deleteElm = document.createElement('a');
+        deleteElm.innerHTML = '<i class="fas fa-trash-alt"></i>';
+        deleteElm.classList = "delete-user";
+        li.appendChild(updateElm);
+        li.appendChild(deleteElm);
+      
       } else { // show results for books
         li.innerHTML = `${result.title}, ${result.isbn}`;
+        
+        const deleteElm = document.createElement('a');
+        deleteElm.innerHTML = '<i class="fas fa-trash-alt"></i>';
+        deleteElm.classList = "delete-book";
+        li.appendChild(deleteElm);
       }
+      
       searchResults.appendChild(li);
       }
   } else {
     let li = document.createElement('li');
-    li.innerText = "Sorry, no results found.";
+    li.innerText = "Sorry, no results found";
     searchResults.appendChild(li);
   }
   
 }
   
+function updateUser(e){
+  console.log();
+}
 
+function deleteUser(e){
+  alert("Do you realy want me go?");
+}
