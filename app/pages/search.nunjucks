@@ -1,0 +1,22 @@
+ <!-- search.nunjucks -->
+{% extends "layout.nunjucks" %}
+
+{% block content%}
+<!-- Adds the navigation partial -->
+{% include "partials/navigation.nunjucks" %}
+ 
+ 
+ <form class="search-form">
+    <label>I'm looking for...</label>
+    <select name="type" id="search-type">
+      <option value="book">Book</option>
+      <option value="user">User</option>
+      <option value="author">Author</option>
+    </select>
+    <input type="search" id="search" name="search" required> 
+    <input type="submit" value="Submit">
+    <input type="reset">  <!-- resets to default value / empty box -->
+  </form>
+  <ul class="search-results"></ul>
+
+{% endblock %}

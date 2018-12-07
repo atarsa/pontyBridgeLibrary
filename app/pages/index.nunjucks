@@ -12,4 +12,5 @@
     <li>Books available: <span id="books-av-count"></span></li>
     <li>Users: <span id="users-count"></span></li>
   </ul>
-{% endblock %}
+
+ {% endblock%}
