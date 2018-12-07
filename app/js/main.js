@@ -1,4 +1,4 @@
-const base_url = "http://127.0.0.1:8000";
+const base_url = "http://192.168.0.15:8000";
 
 var users_url = "/users";
 var books_url = '/books';
@@ -34,11 +34,13 @@ async function getData(query){
 // Get Users
 getData(users_url)
   .then(users => {
+    
     const showAllUsers = document.querySelector('.show-all-users');
-    const li = document.createElement('li');
+    
 
     for (let user of users){
       console.log(user);
+      let li = document.createElement('li');
       li.innerHTML = `${user.name}, ${user.barcode}, ${user.memberType}`;
       showAllUsers.appendChild(li);
     }

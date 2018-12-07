@@ -1,0 +1,29 @@
+<!-- add_user.nunjucks -->
+{% extends "layout.nunjucks" %}
+
+{% block content%}
+<!-- Adds the navigation partial -->
+{% include "partials/navigation.nunjucks" %}
+
+<form action="http://localhost:8000/users" method="POST">
+  <div> 
+    <label for="full-name">Full Name:</label>
+    <input type="text" id="full-name" name="name" required>
+  </div>
+  <div>
+    <label for="barcode">Barcode:</label>
+    <input type="text" id="barcode" name="barcode" required>
+  </div>
+  <div>
+    <label for="member-type">Member type:</label>
+    <select id="member-type" name="memberType">  
+      <option value="student" selected>Student</option>
+      <option value="stuff">Stuff</option>
+    </select>
+  </div>
+  <div>
+    <input type="submit" id="add-user" value="Submit">
+  </div>
+</form>
+
+{% endblock %}

@@ -26,14 +26,26 @@
 
   </nav>
 
-<div>
-    <input type="search" name="user-search" id="user-search" placeholder="I'm looking for...">
-    <input type="submit" value="Search">
-    <button>Add new user</button>
+<form action="http://localhost:8000/users" method="POST">
+  <div> 
+    <label for="full-name">Full Name:</label>
+    <input type="text" id="full-name" name="name" required>
   </div>
-
-  <h3>All users</h3>
-  <ul class="show-all-users"> </ul>
+  <div>
+    <label for="barcode">Barcode:</label>
+    <input type="text" id="barcode" name="barcode" required>
+  </div>
+  <div>
+    <label for="member-type">Member type:</label>
+    <select id="member-type" name="memberType">  
+      <option value="student" selected>Student</option>
+      <option value="stuff">Stuff</option>
+    </select>
+  </div>
+  <div>
+    <input type="submit" id="add-user" value="Submit">
+  </div>
+</form>
 
 
 
