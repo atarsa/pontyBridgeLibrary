@@ -1,9 +1,19 @@
-// server nase_url (external link, needs to be changed before submission)
+// server base_url (external link, needs to be changed before submission)
 const base_url = "http://192.168.0.15:8000";
-
+// urls variables
 var users_url = "/users";
 var books_url = "/books";
 var search_url = "/search";
+
+// UI elements
+// --- HomePage ---
+
+
+// --- Search Page ---
+const searchForm = document.querySelector('.search-form');
+const searchResults = document.querySelector('.search-results');
+
+
 
 // // get Books and Users count for HomePage
 // async function getHomePageData(){
@@ -26,6 +36,7 @@ var search_url = "/search";
 // }
 // getHomePageData();
 
+// All users
 async function getData(query){
   const response = await fetch(base_url+query);
   const data = response.json()
@@ -48,21 +59,15 @@ getData(users_url)
   })
 
 // SEARCH functions
-document.querySelector('.search-form').addEventListener("submit", search);
-  
-  
-  
-
-//});
-
-
+searchForm.addEventListener("submit", search);
+    
+ 
 function search(e){
   let queryUrl = base_url+search_url;
   // get values from search form
   
   let searchType = document.getElementById('search-type').value;
- 
-  let searchInput = document.getElementById('search').value.toLowerCase()
+  let searchInput = document.getElementById('search').value.toLowerCase();
   
   if (searchType == 'user'){
     if (/\D+/.exec(searchInput)){
@@ -73,35 +78,40 @@ function search(e){
   } else if (searchType == 'book'){
     queryUrl += `?type=${searchType}&title=${searchInput}`;
   }
-
+  
+  console.log(queryUrl);
+ 
+  // fetch results
+  fetch(queryUrl)
+    .then(resp => resp.json())
+    .then(results => showResults(results))
+    .catch(err => console.log(err));
 
   e.preventDefault();
-  console.log(queryUrl);
-
-  async function getResults(){
-    const response = await fetch(queryUrl);
-    const data = await response.json();
-    return data
   }
   
-  getResults().then( results => {
-    console.log(results)
-    const showResults = document.querySelector('.search-results');
-    
+function showResults(results) {
+  
+  searchResults.innerHTML = "";
+  document.getElementById('search').value = "";
+  if (results.length !== 0){
     for (let result of results){
-      
       console.log(result);
       let li = document.createElement('li');
-
       // show results for user
       if ('name' in result){
         li.innerHTML = `${result.name}, ${result.barcode}, ${result.memberType}`;
       } else { // show results for books
         li.innerHTML = `${result.title}, ${result.isbn}`;
       }
-      
-      showResults.appendChild(li);
-    }
-  })
+      searchResults.appendChild(li);
+      }
+  } else {
+    let li = document.createElement('li');
+    li.innerText = "Sorry, no results found.";
+    searchResults.appendChild(li);
+  }
   
 }
+  
+
