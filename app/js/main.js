@@ -143,13 +143,13 @@ function showResults(results) {
 }
 function editElement(e){
   if(e.target.parentElement.matches('.update-user')){
-    //console.log("update");
     //console.log(e.target.parentElement.parentElement)
     updateUser(e.target.parentElement.parentElement);
   } 
   else if(e.target.parentElement.matches('.delete-user')){
-    console.log("delete user");
-    console.log(e.target.parentElement.parentElement)
+    //console.log(`delete: ${e.target.parentElement.parentElement}`);
+    deleteUser(e.target.parentElement.parentElement);
+    
   } else if(e.target.parentElement.matches('.delete-book')){
     console.log("delete book");
     console.log(e.target.parentElement.parentElement)
@@ -220,6 +220,7 @@ function updateUser(target){
     searchResults.innerHTML = "";
     messageDiv.style.background = "green";
     messageDiv.innerText = "User modified successfully";
+    // remove message after 3sec
     setTimeout(function(){
       messageDiv.innerHTML = "";}, 3000);
     
@@ -228,7 +229,27 @@ function updateUser(target){
 }
 
 
-
-function deleteUser(e){
+function deleteUser(target){
+  console.log(target.attributes[0].value);
   confirm("Are you sure you want to delete this item?");
+  // Get element ID
+  
+  let id = target.attributes[0].value;
+
+  let queryUrl = `${base_url}${users_url}/${id}`;
+    
+
+  console.log("deleting...");
+    
+  // DELETE request to update data on the server
+    fetch(queryUrl, {method: "DELETE"})
+      .catch(error => console.error('Error:', error));
+
+    // Message if successfull
+    searchResults.innerHTML = "";
+    messageDiv.style.background = "red";
+    messageDiv.innerText = "User deleted successfully";
+    // remove message after 3sec
+    setTimeout(function(){
+      messageDiv.innerHTML = "";}, 3000);
 }
