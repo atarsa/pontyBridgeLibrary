@@ -18,5 +18,6 @@
     <input type="reset">  <!-- resets to default value / empty box -->
   </form>
   <ul class="search-results"></ul>
+  <div class="message"> </div>
 
 {% endblock %}
