@@ -20,4 +20,6 @@
   <ul class="search-results"></ul>
   <div class="message"> </div>
 
+<script src="js/main.js"></script>
+<script src="js/search.js"></script>
 {% endblock %}

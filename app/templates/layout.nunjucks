@@ -13,6 +13,6 @@
   <!-- You write code for this content block in another file -->
   {% block content %} {% endblock %}
 
- <script src="js/main.js"></script>
+ 
 </body>
 </html>

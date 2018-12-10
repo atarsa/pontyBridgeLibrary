@@ -7,8 +7,8 @@
       <li><a href="search.html">Search</a></li>
     </ul>
     <ul>
-      <li><a href="#">Add new book</a></li>
-      <li><a href="add_user.html#">Add new user</a></li>
+      <li><a href="add_book.html">Add new book</a></li>
+      <li><a href="add_user.html">Add new user</a></li>
     </ul>
 
   </nav>
