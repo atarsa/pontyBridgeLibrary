@@ -1,5 +1,8 @@
 // --- Add Book Page ---
+
+// --- UI variables ---
 const addBookBtn = document.getElementById('add-book');
+const messageDiv = document.querySelector('.message-add-book');
 
 // ADD book event listener
 addBookBtn.addEventListener("click", addBook);
@@ -21,32 +24,49 @@ function addBook(e){
   let authorData = {name: inputAuthor}
   console.log(queryUrl);
   
-  let params = `title=${inputTitle}&isbn=${inputISBN}`;
-  const httpR = new XMLHttpRequest();
-  httpR.open("POST", queryUrl, true);
-  httpR.setRequestHeader('Content-type', 'application/json');
+      
+  sendData(queryUrl, bookData)
+    .then(data => {
+      //console.log(data)
+      const bookID = data.id;
+      const authorPostUrl = `${queryUrl}/${bookID}${authors_url}`
+      //console.log(authorPostUrl)
+      sendData(authorPostUrl, authorData)
+        .then(() => {
+            // clean input fields
+            inputTitle = "";
+            inputISBN = "";
+            inputAuthor = "";
+
+            // send message that successfull
+            messageDiv.style.background = "green";
+            messageDiv.innerText = "Book added successfully";
+            // remove message after 3sec
+             setTimeout(function(){
+              messageDiv.innerHTML = "";}, 3000);
+        });
+    })
+    .catch(err => {
+        // send message that unsuccessfull
+        messageDiv.style.background = "red";
+        messageDiv.innerText = "Oopss, something went wrong. Please try again.";
+        // remove message after 3sec
+         setTimeout(function(){
+          messageDiv.innerHTML = "";}, 3000);
+    })
   
-  
-  httpR.send(JSON.stringify(bookData));
-  httpR.onload = function() {
-    // Do whatever with response
-    let response = JSON.parse(httpR.response);
-    
-    const authorRequest = new XMLHttpRequest();
-    let authorPostUrl = `${queryUrl}/${response.id}${authors_url}`;
-    
-    authorRequest.open("POST", authorPostUrl, true );
-    authorRequest.setRequestHeader('Content-type', 'application/json');
-    
-    authorRequest.send(JSON.stringify(authorData));
-    authorRequest.onload = function(){
-      console.log(authorRequest.response);
-    }
-  
-  }
-  
-   
-  
-  e.preventDefault();
+    e.preventDefault();
 }
 
+async function sendData(url, inputData){
+  const response = await fetch(url, {
+    method: "POST",
+    body: JSON.stringify(inputData),
+    headers:{
+      'Content-Type': 'application/json'
+      }
+    });
+  
+  const data = await response.json()
+  return data
+}
