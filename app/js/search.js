@@ -90,15 +90,13 @@ function editElement(e){
     updateUser(e.target.parentElement.parentElement);
   } 
   else if(e.target.parentElement.matches('.delete-user')){
-    //console.log(`delete: ${e.target.parentElement.parentElement}`);
-    deleteUser(e.target.parentElement.parentElement);
+     deleteItem('user',e.target.parentElement.parentElement);
     
   } else if(e.target.parentElement.matches('.delete-book')){
-    console.log("delete book");
-    console.log(e.target.parentElement.parentElement)
+
+    deleteItem('book',e.target.parentElement.parentElement);
   } 
 } 
-
 
 
 function updateUser(target){
@@ -172,16 +170,20 @@ function updateUser(target){
 }
 
 
-function deleteUser(target){
+function deleteItem(itemType,target){
   console.log(target.attributes[0].value);
   confirm("Are you sure you want to delete this item?");
   // Get element ID
-  
   let id = target.attributes[0].value;
 
-  let queryUrl = `${base_url}${users_url}/${id}`;
+  // Get query Url depending on type of item
+  let queryUrl;
+  if (itemType === "user"){
+    queryUrl = `${base_url}${users_url}/${id}`;
+  } else if (itemType === "book"){
+    queryUrl = `${base_url}${books_url}/${id}`;
+  }
     
-
   console.log("deleting...");
     
   // DELETE request to update data on the server
@@ -191,7 +193,7 @@ function deleteUser(target){
     // Message if successfull
     searchResults.innerHTML = "";
     messageDiv.style.background = "red";
-    messageDiv.innerText = "User deleted successfully";
+    messageDiv.innerText = "Item deleted successfully";
     // remove message after 3sec
     setTimeout(function(){
       messageDiv.innerHTML = "";}, 3000);
