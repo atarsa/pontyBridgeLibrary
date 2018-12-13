@@ -2,15 +2,19 @@
 {% extends "layout.nunjucks" %}
 
 {% block content%}
+
+<div class="container">
 <!-- Adds the navigation partial -->
 {% include "partials/navigation.nunjucks" %}
-
-<h1> Library Homepage </h1>
-  <h3>The Library has the following records counts:</h3>
-  <ul>
-    <li>Books: <span id="books-count"></span></li>
-    <li>Books available: <span id="books-av-count"></span></li>
-    <li>Users: <span id="users-count"></span></li>
-  </ul>
+    <div class"main-content">
+      <h2> Welcome to the PontryBridge University Library!</h2>
+      <h3>The Library has the following records counts:</h3>
+      <ul>
+        <li>Books: <span id="books-count"></span></li>
+        <li>Books available: <span id="books-av-count"></span></li>
+        <li>Users: <span id="users-count"></span></li>
+      </ul>
+    </div>  
+</div>
 
  {% endblock%}

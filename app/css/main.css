@@ -1,0 +1,43 @@
+/*** Navigation layout ***/
+.nav-sidebar {
+  top: 5em;
+  border-right: solid 5px #6e4b77; }
+
+.nav-sidebar ul {
+  display: block;
+  margin-left: 2em;
+  padding: 0.5em 0;
+  list-style: none; }
+
+.nav-sidebar li {
+  padding: 0.3em; }
+
+.nav-sidebar a {
+  text-decoration: none; }
+
+.container {
+  margin: 0 auto;
+  display: grid;
+  max-width: 1250px;
+  grid-template-columns: 1fr 3fr;
+  position: relative;
+  top: 5em; }
+
+.main-content {
+  margin: 1em 2em; }
+
+/*** header layout ***/
+.top-header {
+  background-color: #6e4b77;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw; }
+
+.logo {
+  margin: 0.8em; }
+
+/*** logo component styles ***/
+.logo {
+  color: white;
+  text-decoration: none; }

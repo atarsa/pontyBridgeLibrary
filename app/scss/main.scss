@@ -5,7 +5,8 @@
 //@import "vendors/normalize/import-now";
 @import "vendors/normalize";
 
-@import 'base/reset',
+@import 'base/base',
+'base/reset',
 'base/typography';
 
 @import 'layout/navigation',
@@ -15,6 +16,7 @@
 'layout/sidebar',
 'layout/forms';
 
-@import 'components/buttons';
+@import 'components/logo',
+'components/buttons';
 
 @import 'pages/home';

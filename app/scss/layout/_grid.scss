@@ -1,0 +1,13 @@
+// needs to work on grid!! just quick prototype!!!
+.container {
+  margin: 0 auto;
+  display: grid;
+  max-width: 1250px;
+  grid-template-columns: 1fr 3fr;
+  position: relative;
+  top: 5em;
+}
+
+.main-content {
+  margin: 1em 2em;
+}

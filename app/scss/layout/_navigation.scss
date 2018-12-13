@@ -1,0 +1,22 @@
+/*** Navigation layout ***/
+.nav-sidebar {
+  top: 5em;
+  border-right: solid 5px $purple;
+}
+
+.nav-sidebar ul {
+  display: block;
+  margin-left: 2em;
+  padding: 0.5em 0;
+  list-style: none;
+
+}
+
+.nav-sidebar li {
+  padding: 0.3em;
+}
+
+.nav-sidebar a {
+
+  text-decoration: none;
+}

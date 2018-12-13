@@ -2,16 +2,20 @@
 {% extends "layout.nunjucks" %}
 
 {% block content %}
+<div class="container">
 <!-- Adds the navigation partial -->
 {% include "partials/navigation.nunjucks" %}
+  <div class"main-content">
 
-<div>
-    <input type="search" name="user-search" id="user-search" placeholder="I'm looking for...">
-    <input type="submit" value="Search">
-    <button>Add new user</button>
-  </div>
+    <div>
+        <input type="search" name="user-search" id="user-search" placeholder="I'm looking for...">
+        <input type="submit" value="Search">
+        <button>Add new user</button>
+    </div>
 
-  <h3>All users</h3>
-  <ul class="show-all-users"> </ul>
+    <h3>All users</h3>
+    <ul class="show-all-users"> </ul>
+  </div>  
 
+</div> 
 {% endblock %}
