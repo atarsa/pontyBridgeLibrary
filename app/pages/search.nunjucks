@@ -5,16 +5,16 @@
 <div class="container">
 <!-- Adds the navigation partial -->
 {% include "partials/navigation.nunjucks" %}
-  <div class"main-content">
-  
+  <div class="main-content">
+    <p>I'm looking for...</p>
     <form class="search-form">
-        <label>I'm looking for...</label>
-        <select name="type" id="search-type">
+        {# <label>I'm looking for...</label> #}
+        <select name="type" id="search-type"  class="search-form__select">
           <option value="book">Book</option>
           <option value="user">User</option>
-          <option value="author">Author</option>
+          {# <option value="author">Author</option> #}
         </select>
-        <input type="search" id="search" name="search" required> 
+        <input type="search" id="search" name="search" required class="search-form__search-input"> 
         <input type="submit" value="Submit">
         <input type="reset">  <!-- resets to default value / empty box -->
       </form>
