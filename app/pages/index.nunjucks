@@ -6,7 +6,7 @@
 <div class="container">
 <!-- Adds the navigation partial -->
 {% include "partials/navigation.nunjucks" %}
-    <div class"main-content">
+    <div class="main-content">
       <h2> Welcome to the PontryBridge University Library!</h2>
       <h3>The Library has the following records counts:</h3>
       <ul>

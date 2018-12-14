@@ -5,7 +5,7 @@
 <div class="container">
   <!-- Adds the navigation partial -->
   {% include "partials/navigation.nunjucks" %}
-  <div class"main-content">
+  <div class="main-content">
 
     <!-- external url to my local server -->
     <form action="http://192.168.0.15:8000/users" method="POST">
@@ -25,7 +25,7 @@
         </select>
       </div>
       <div>
-        <input type="submit" id="add-user" value="Submit">
+        <input type="submit" id="add-user" value="Submit" class="btn">
       </div>
     </form>
 

@@ -5,7 +5,7 @@
 <div class="container">
 <!-- Adds the navigation partial -->
 {% include "partials/navigation.nunjucks" %}
-  <div class"main-content">
+  <div class="main-content">
 
     <div>
         <input type="search" name="user-search" id="user-search" placeholder="I'm looking for...">

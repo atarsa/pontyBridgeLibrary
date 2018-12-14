@@ -1,3 +1,8 @@
+body {
+  font-family: "Quattrocento Sans", sans-serif;
+  font-size: 16px;
+  line-height: 1.4; }
+
 /*** Navigation layout ***/
 .nav-sidebar {
   top: 5em;
@@ -67,3 +72,13 @@ input[type="text"] {
   display: inline-block;
   border: 1px solid #ccc;
   border-radius: 2px; }
+
+/*** Buttons ***/
+.btn {
+  border: none;
+  padding: 0.5em 1em;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block; }
+  .btn:hover {
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19); }

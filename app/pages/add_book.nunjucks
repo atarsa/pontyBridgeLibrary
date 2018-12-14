@@ -5,7 +5,7 @@
 <div class="container">
   <!-- Adds the navigation partial -->
   {% include "partials/navigation.nunjucks" %}
-    <div class"main-content">
+    <div class="main-content">
 
       <!-- external url to my local server -->
       <!--<form action="http://192.168.0.15:8000/books" method="POST"> -->
@@ -23,7 +23,7 @@
         <input type="text" id="author-input" name="name" required  placeholder="John Doe" >
       </div>
         <div>
-          <button id="add-book">Submit</button>
+          <button id="add-book" class="btn">Submit</button>
         </div>
       </form>
       <div class="message-add-book"> </div>
