@@ -1,11 +1,11 @@
 // --- Search Page ---
 const searchForm = document.querySelector('.search-form');
-const searchResults = document.querySelector('.search-results');
+const showSearchResults = document.querySelector('.show-search-results');
 const messageDiv = document.querySelector('.message');
 
 // SEARCH, UPDATE event listeneres 
 searchForm.addEventListener("submit", search);
-searchResults.addEventListener("click", editElement);  
+showSearchResults.addEventListener("click", editElement);  
 
 // SEARCh, UPDATE functions
 function search(e){
@@ -38,7 +38,7 @@ function search(e){
   
 function showResults(results) {
   
-  searchResults.innerHTML = "";
+  showSearchResults.innerHTML = "";
   document.getElementById('search').value = "";
   if (results.length !== 0){
     for (let result of results){
@@ -49,6 +49,7 @@ function showResults(results) {
       if ('name' in result){
         // add data atribute to identify item in db
         li.setAttribute("data-userId", id);
+        li.setAttribute("class", "show-search-results__item--user")
         li.innerHTML = `<span>${result.name}</span>
                         <span>${result.barcode}</span>
                         <span> ${result.memberType}</span>`;
@@ -61,12 +62,18 @@ function showResults(results) {
         deleteElm.setAttribute("href", "#");
         deleteElm.innerHTML = '<i class="fas fa-trash-alt"></i>';
         deleteElm.classList = "delete-user";
-        li.appendChild(updateElm);
-        li.appendChild(deleteElm);
+
+        const buttonsDiv = document.createElement('div');
+        buttonsDiv.appendChild(updateElm)
+        buttonsDiv.appendChild(deleteElm);
+        li.appendChild(buttonsDiv);
       
-      } else { // show results for books
+      } else { 
+        // show results for books
         li.setAttribute("data-bookId", id);
-        li.innerHTML = `${result.title}, ${result.isbn}`;
+        li.setAttribute("class", "show-search-results__item--book")
+        li.innerHTML = `<span>${result.title}</span>
+                        <span>${result.isbn}</span>`;
         
         const deleteElm = document.createElement('a');
         deleteElm.setAttribute("href", "#");
@@ -75,12 +82,12 @@ function showResults(results) {
         li.appendChild(deleteElm);
       }
       
-      searchResults.appendChild(li);
+      showSearchResults.appendChild(li);
       }
   } else {
     let li = document.createElement('li');
     li.innerText = "Sorry, no results found";
-    searchResults.appendChild(li);
+    showSearchResults.appendChild(li);
   }
   
 }
@@ -101,7 +108,7 @@ function editElement(e){
 
 function updateUser(target){
   // remove Event Listener to prevent creating new form with every click
-  searchResults.removeEventListener("click", editElement);
+  showSearchResults.removeEventListener("click", editElement);
   console.log(target);
   // Get element ID
   console.log(target.attributes[0].value);
@@ -158,7 +165,7 @@ function updateUser(target){
     .catch(error => console.error('Error:', error));
 
     // Message if successfull
-    searchResults.innerHTML = "";
+    showSearchResults.innerHTML = "";
     messageDiv.style.background = "green";
     messageDiv.innerText = "User modified successfully";
     // remove message after 3sec
@@ -191,7 +198,7 @@ function deleteItem(itemType,target){
       .catch(error => console.error('Error:', error));
 
     // Message if successfull
-    searchResults.innerHTML = "";
+    showSearchResults.innerHTML = "";
     messageDiv.style.background = "red";
     messageDiv.innerText = "Item deleted successfully";
     // remove message after 3sec
