@@ -2,7 +2,7 @@
 {% extends "layout.nunjucks" %}
 
 {% block content%}
-<div class="container">
+
   <!-- Adds the navigation partial -->
   {% include "partials/navigation.nunjucks" %}
   <div class="main-content">
@@ -30,5 +30,5 @@
     </form>
 
   </div>
-</div>
+
 {% endblock %}

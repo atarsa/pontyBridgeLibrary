@@ -1,13 +1,28 @@
 // needs to work on grid!! just quick prototype!!!
 .container {
+  background-color: aquamarine;
   margin: 0 auto;
   display: grid;
   max-width: 1250px;
+  height: 100vh;
   grid-template-columns: 1fr 3fr;
-  position: relative;
-  top: 5em;
+  grid-template-areas:
+    "header header"
+    "side-bar main-content"
+    "side-bar main-content"
+    "footer footer"
+
+}
+
+header {
+  grid-area: header;
+}
+
+footer {
+  grid-area: footer;
 }
 
 .main-content {
+  grid-area: main-content;
   margin: 1em 2em;
 }

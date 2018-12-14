@@ -2,7 +2,7 @@
 {% extends "layout.nunjucks" %}
 
 {% block content%}
-<div class="container">
+
 <!-- Adds the navigation partial -->
 {% include "partials/navigation.nunjucks" %}
   <div class="main-content">
@@ -21,7 +21,7 @@
       <ul class="search-results"></ul>
       <div class="message"> </div>
   </div>
-</div>
+
 <script src="js/main.js"></script>
 <script src="js/search.js"></script>
 {% endblock %}

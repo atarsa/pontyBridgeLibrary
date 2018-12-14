@@ -3,7 +3,7 @@
 
 {% block content%}
 
-<div class="container">
+
 <!-- Adds the navigation partial -->
 {% include "partials/navigation.nunjucks" %}
     <div class="main-content">
@@ -15,6 +15,6 @@
         <li>Users: <span id="users-count"></span></li>
       </ul>
     </div>  
-</div>
+
 
  {% endblock%}

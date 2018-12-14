@@ -12,16 +12,21 @@
   <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-  <header class="top-header">
-    <h1>
-      <a href="/index.html" class="logo">
-      PontyBridge University</a>
-    </h1>
-  </header>
+
+  <div class="container">
+    <header class="top-header">
+      <h1>
+        <a href="/index.html" class="logo">
+        PontyBridge University</a>
+      </h1>
+    </header>
   
   <!-- You write code for this content block in another file -->
   {% block content %} {% endblock %}
 
- 
+    <footer>
+      <div> Placeholder for footer </div>
+    </footer>
+  </div> <!-- end of .container -->
 </body>
 </html>
