@@ -40,14 +40,48 @@ if (currentLocation == "/books.html"){
   showBooks();
   bookSearchInput.addEventListener('keyup', filterResults);
 }
+// if on add_user page add new user to records
+if (currentLocation == "/add_user.html"){
+  //addUser();
+  
+}
 
-
+// GET request
 async function getData(query){
   const response = await fetch(base_url+query);
   const data = response.json()
 
   return data
 }
+// POST request
+async function sendData(url, inputData){
+  const response = await fetch(url, {
+    method: "POST",
+    body: JSON.stringify(inputData),
+    headers:{
+      'Content-Type': 'application/json'
+      }
+    });
+  
+  const data = await response.json()
+  return data
+}
+function showMessage(msg, status){
+    messageDiv.style.display = "block";
+    
+    if (status){
+      messageDiv.classList.toggle("message--success");
+    } else {
+      messageDiv.classList.toggle("message--alert");
+    }
+    
+    messageDiv.innerText = msg;
+     
+    //remove message after 3sec
+      setTimeout(function(){
+         messageDiv.style.display = "none";
+      }, 3000);
+  }
 
 // get Books and Users count for HomePage
 function getHomePageData(){

@@ -24,7 +24,7 @@
           <button id="js-add-book" class="btn">Submit</button>
         </div>
     </form>
-    <div class="message-add-book"> </div>
+    <div class="message message-add-book"> </div>
 
     </div> <!-- end .main-content -->
 

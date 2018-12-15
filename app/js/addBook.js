@@ -12,18 +12,19 @@ addBookBtn.addEventListener("click", addBook);
 // add book to db
 function addBook(e){
   // define UI variables
-  let inputTitle = document.getElementById('js-title-input').value;
-  let inputISBN = document.getElementById('js-isbn-input').value;
-  let inputAuthor = document.getElementById('js-author-input').value;
+  let inputTitle = document.getElementById('js-title-input');
+  let inputISBN = document.getElementById('js-isbn-input');
+  let inputAuthor = document.getElementById('js-author-input');
 
    
   // Send POST request with book title and isbn, await response to get the book id
   let queryUrl = base_url+books_url;
-  let bookData = {title: inputTitle,
-              isbn: inputISBN}
-  let authorData = {name: inputAuthor}
+  let bookData = {title: inputTitle.value,
+              isbn: inputISBN.value}
+  let authorData = {name: inputAuthor.value}
   console.log(queryUrl);
   
+  let status;
       
   sendData(queryUrl, bookData)
     .then(data => {
@@ -34,27 +35,22 @@ function addBook(e){
       sendData(authorPostUrl, authorData)
         .then(() => {
             // clean input fields
-            
-            inputTitle = " ";
-            console.log(inputTitle);
-            inputISBN = " ";
-            inputAuthor = " ";
+            console.log(inputTitle)
+            inputTitle.value = "";
+            inputISBN.value = "";
+            inputAuthor.value = "";
 
             // send message that successfull
-            messageDiv.style.background = "green";
-            messageDiv.innerText = "Book added successfully";
-            // remove message after 3sec
-             setTimeout(function(){
-              messageDiv.innerHTML = "";}, 3000);
+            status = true;
+            showMessage("Book added successfully", status);
+            
         });
     })
     .catch(err => {
         // send message that unsuccessfull
-        messageDiv.style.background = "red";
-        messageDiv.innerText = "Oopss, something went wrong. Please try again.";
-        // remove message after 3sec
-         setTimeout(function(){
-          messageDiv.innerHTML = "";}, 3000);
+        status = false;
+        showMessage("Oopss, something went wrong. Please try again.", status);
+      
     })
   
     e.preventDefault();

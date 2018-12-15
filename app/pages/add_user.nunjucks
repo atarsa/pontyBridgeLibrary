@@ -8,27 +8,34 @@
   <div class="main-content">
 
     <!-- external url to my local server -->
-    <form action="http://192.168.0.15:8000/users" method="POST" class="add-form">
+    {# <form action="http://192.168.0.15:8000/users" method="POST" class="add-form"> #}
+    <form class="add-form">
       <div class="add-form__elm"> 
         <label for="full-name">Full Name:</label>
-        <input type="text" id="full-name" name="name" required>
+        <input type="text" id="js-full-name" name="name" required>
       </div>
       <div class="add-form__elm">
         <label for="barcode">Barcode:</label>
-        <input type="text" id="barcode" name="barcode" required pattern="\d{5,}" placeholder="12345">
+        <input type="text" id="js-barcode" name="barcode" required pattern="\d{5,}" placeholder="12345">
       </div>
       <div class="add-form__elm">
         <label for="member-type">Member type:</label>
-        <select id="member-type" name="memberType" class="add-form__elm--select">  
+        <select id="js-member-type" name="memberType" class="add-form__elm--select">  
           <option value="Student" selected>Student</option>
           <option value="Staff">Staff</option>
         </select>
       </div>
       <div class="add-form__elm">
-        <input type="submit" id="add-user" value="Submit" class="btn">
+        <input type="submit" id="js-add-user" value="Submit" class="btn">
       </div>
     </form>
+    <div class="loading-animation">
+      small circle
+    </div>
+    <div class="message message--add-user"> Message</div>
 
   </div>
 
+<script src= "js/main.js"></script>
+<script src="js/addUser.js"></script>  
 {% endblock %}
