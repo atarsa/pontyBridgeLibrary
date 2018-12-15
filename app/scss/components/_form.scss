@@ -10,16 +10,8 @@ input[type="search"] {
 
 }
 
-.search-form__select {
-  padding: 0 0.8em;
-  //height: 3em;
-}
-
-.search-form__search-input {
-  // width: 70%;
-}
-
 input[type="text"],
+.search-form__select,
 .add-form__elm--select {
   padding: 0.4em 0.8em;
   display: inline-block;
