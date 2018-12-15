@@ -1,4 +1,6 @@
-/*** grid ***/
+/**********
+ *  grid  *
+ ***********/
 // needs to work on grid!! just quick prototype!!!
 .container {
   //background-color: aquamarine;
@@ -81,5 +83,27 @@ footer {
     display: inline-grid;
     grid-template-columns: 2fr 2fr 1fr;
 
+  }
+}
+
+/*** Add User Page ***/
+.add-form {
+  width: 70%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 0.8em;
+
+  &__elm {
+    display: inline-grid;
+    grid-template-columns: 1fr 2fr;
+
+    & label {
+      justify-self: end;
+      padding: 0.4em 0.8em;
+    }
+
+    & .btn {
+      grid-column: 2/3;
+    }
   }
 }

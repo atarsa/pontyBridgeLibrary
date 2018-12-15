@@ -19,7 +19,8 @@ input[type="search"] {
   // width: 70%;
 }
 
-input[type="text"] {
+input[type="text"],
+.add-form__elm--select {
   padding: 0.4em 0.8em;
   display: inline-block;
   border: 1px solid #ccc;

@@ -1,7 +1,7 @@
 // --- Add Book Page ---
 
 // --- UI variables ---
-const addBookBtn = document.getElementById('add-book');
+const addBookBtn = document.getElementById('js-add-book');
 const messageDiv = document.querySelector('.message-add-book');
 
 // ADD book event listener
@@ -12,9 +12,9 @@ addBookBtn.addEventListener("click", addBook);
 // add book to db
 function addBook(e){
   // define UI variables
-  let inputTitle = document.getElementById('title-input').value;
-  let inputISBN = document.getElementById('isbn-input').value;
-  let inputAuthor = document.getElementById('author-input').value;
+  let inputTitle = document.getElementById('js-title-input').value;
+  let inputISBN = document.getElementById('js-isbn-input').value;
+  let inputAuthor = document.getElementById('js-author-input').value;
 
    
   // Send POST request with book title and isbn, await response to get the book id
@@ -34,9 +34,11 @@ function addBook(e){
       sendData(authorPostUrl, authorData)
         .then(() => {
             // clean input fields
-            inputTitle = "";
-            inputISBN = "";
-            inputAuthor = "";
+            
+            inputTitle = " ";
+            console.log(inputTitle);
+            inputISBN = " ";
+            inputAuthor = " ";
 
             // send message that successfull
             messageDiv.style.background = "green";

@@ -8,23 +8,23 @@
   <div class="main-content">
 
     <!-- external url to my local server -->
-    <form action="http://192.168.0.15:8000/users" method="POST">
-      <div> 
+    <form action="http://192.168.0.15:8000/users" method="POST" class="add-form">
+      <div class="add-form__elm"> 
         <label for="full-name">Full Name:</label>
         <input type="text" id="full-name" name="name" required>
       </div>
-      <div>
+      <div class="add-form__elm">
         <label for="barcode">Barcode:</label>
         <input type="text" id="barcode" name="barcode" required pattern="\d{5,}" placeholder="12345">
       </div>
-      <div>
+      <div class="add-form__elm">
         <label for="member-type">Member type:</label>
-        <select id="member-type" name="memberType">  
-          <option value="student" selected>Student</option>
-          <option value="staff">Staff</option>
+        <select id="member-type" name="memberType" class="add-form__elm--select">  
+          <option value="Student" selected>Student</option>
+          <option value="Staff">Staff</option>
         </select>
       </div>
-      <div>
+      <div class="add-form__elm">
         <input type="submit" id="add-user" value="Submit" class="btn">
       </div>
     </form>
