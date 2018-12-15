@@ -17,27 +17,14 @@ console.log(`location: ${currentLocation}`);
 let books_count = document.getElementById('books-count');
 let users_count = document.getElementById('users-count');
 
-// --- User Page ---
-let showAllUsers = document.querySelector('.show-all-users');
+// --- Users Page ---
 let userSearchInput = document.getElementById('js-user-search');
+let showResultsUl = document.querySelector('.show-search-results');
 
-// get Books and Users count for HomePage
-function getHomePageData(){
-      try{
-        
-        // get books count
-        getData(books_url).then(books => {
-          books_count.innerHTML= books.length;
-        })
-        
-        // get users count
-        getData(users_url).then(users =>{
-          users_count.innerHTML= users.length;
-        })
-     } catch(err){
-      console.log(err);
-    }
-}
+// --- Books Page ---
+let bookSearchInput = document.getElementById('js-book-search');
+
+
 
 // if on homePage show all records counts
 if (currentLocation == "/index.html" || currentLocation == "/" ){
@@ -48,6 +35,11 @@ if (currentLocation == "/users.html"){
   showUsers();
   userSearchInput.addEventListener('keyup', filterResults);
 }
+// if on Books Page show all books records
+if (currentLocation == "/books.html"){
+  showBooks();
+  bookSearchInput.addEventListener('keyup', filterResults);
+}
 
 
 async function getData(query){
@@ -57,40 +49,71 @@ async function getData(query){
   return data
 }
 
-// Get Users
+// get Books and Users count for HomePage
+function getHomePageData(){
+  try{
+    
+    // get books count
+    getData(books_url).then(books => {
+      books_count.innerHTML= books.length;
+    })
+    
+    // get users count
+    getData(users_url).then(users =>{
+      users_count.innerHTML= users.length;
+    })
+ } catch(err){
+  console.log(err);}
+}
+
+// Show All Users
 function showUsers(){
-  console.log("fetching users")
+  
   getData(users_url)
     .then(users => {
-      
-        
+              
       for (let user of users){
-        
         let li = document.createElement('li');
-        li.setAttribute("class", "show-search-results__item--user")
+        li.setAttribute("class", "show-search-results__item show-search-results__item--user")
                
         li.innerHTML = `<span>${user.name}</span>
                         <span>${user.barcode}</span>
                         <span> ${user.memberType}</span>
                         <span> icons </span>`;
-        showAllUsers.appendChild(li);
+        showResultsUl.appendChild(li);
+      }
+  })
+}
+
+// Show All Books
+function showBooks(){
+  
+  getData(books_url)
+    .then(books => {
+              
+      for (let book of books){
+        let li = document.createElement('li');
+        li.setAttribute("class", "show-search-results__item--book show-search-results__item")
+               
+        li.innerHTML = `<span>${book.title}</span>
+                        <span>${book.isbn}</span>
+                        <span> icons </span>`;
+        showResultsUl.appendChild(li);
       }
   })
 }
 
 // filter results
 function filterResults(e){
-  
   let text = e.target.value.toLowerCase();
-  
-  document.querySelectorAll(".show-search-results__item--user").forEach(user => {
-    const item = user.textContent;
+ 
+  document.querySelectorAll(".show-search-results__item").forEach(li => {
+    const item = li.textContent;
     if ( item.toLowerCase().indexOf(text) != -1){
-      user.style.display = "inline-grid";
+      li.style.display = "inline-grid";
     } else {
-      user.style.display = "none";
+      li.style.display = "none";
     }
   })
-
 }
 

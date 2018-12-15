@@ -1,0 +1,24 @@
+<!-- books.nunjucks -->
+{% extends "layout.nunjucks" %}
+
+{% block content %}
+
+<!-- Adds the navigation partial -->
+{% include "partials/navigation.nunjucks" %}
+  <div class="main-content">
+
+    <div>
+        <input type="search" name="book-search" id="js-book-search" placeholder="I'm looking for...">
+        <input type="submit" value="Search" class="btn">
+        <a href="/add_book.html">
+          <button class="btn">Add new book</button>
+        </a>
+        
+    </div>
+
+    <h3>All books</h3>
+    <ul class="show-all-books show-search-results"> </ul>
+  </div>  
+
+<script src="js/main.js"></script>
+{% endblock %}
