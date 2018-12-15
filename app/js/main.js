@@ -19,6 +19,7 @@ let users_count = document.getElementById('users-count');
 
 // --- User Page ---
 let showAllUsers = document.querySelector('.show-all-users');
+let userSearchInput = document.getElementById('js-user-search');
 
 // get Books and Users count for HomePage
 function getHomePageData(){
@@ -45,6 +46,7 @@ if (currentLocation == "/index.html" || currentLocation == "/" ){
 // if on User Page show all user records
 if (currentLocation == "/users.html"){
   showUsers();
+  userSearchInput.addEventListener('keyup', filterResults);
 }
 
 
@@ -69,11 +71,26 @@ function showUsers(){
                
         li.innerHTML = `<span>${user.name}</span>
                         <span>${user.barcode}</span>
-                        <span> ${user.memberType}</span>`;
+                        <span> ${user.memberType}</span>
+                        <span> icons </span>`;
         showAllUsers.appendChild(li);
       }
   })
 }
 
+// filter results
+function filterResults(e){
+  
+  let text = e.target.value.toLowerCase();
+  
+  document.querySelectorAll(".show-search-results__item--user").forEach(user => {
+    const item = user.textContent;
+    if ( item.toLowerCase().indexOf(text) != -1){
+      user.style.display = "inline-grid";
+    } else {
+      user.style.display = "none";
+    }
+  })
 
+}
 

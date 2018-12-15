@@ -8,7 +8,7 @@
   <div class="main-content">
 
     <div>
-        <input type="search" name="user-search" id="user-search" placeholder="I'm looking for...">
+        <input type="search" name="user-search" id="js-user-search" placeholder="I'm looking for...">
         <input type="submit" value="Search" class="btn">
         <a href="/add_user.html">
           <button class="btn">Add new user</button>
