@@ -9,6 +9,7 @@ var authors_url = "/authors"
 
 // get the current location
 var currentLocation = window.location.pathname;
+console.log(`location: ${currentLocation}`);
 
 
 // UI elements
@@ -16,54 +17,37 @@ var currentLocation = window.location.pathname;
 let books_count = document.getElementById('books-count');
 let users_count = document.getElementById('users-count');
 
+// --- User Page ---
+let showAllUsers = document.querySelector('.show-all-users');
 
-// // get Books and Users count for HomePage
-// async function getHomePageData(){
-  
-//   try{
-//     console.log("fetching data...")
-//     const booksResponse = await fetch(base_url+books_url);
-//     const usersResponse = await fetch(base_url+users_url);
-  
-//     const booksData = await booksResponse.json();
-//     const usersData = await usersResponse.json();
-    
-//     console.log(booksData);
-    
-//     books_count.innerHTML= booksData.length;
-//     users_count.innerHTML= usersData.length;
-//   } catch(err){
-//     console.log(err);
-//   }
-// }
-
+// get Books and Users count for HomePage
 function getHomePageData(){
-  
-    try{
-      console.log("fetching data...")
-     
+      try{
+        
+        // get books count
         getData(books_url).then(books => {
-          console.log(books)
           books_count.innerHTML= books.length;
         })
-      
-      
+        
+        // get users count
         getData(users_url).then(users =>{
           users_count.innerHTML= users.length;
         })
-     }
-       
-    catch(err){
+     } catch(err){
       console.log(err);
     }
-  }
+}
+
 // if on homePage show all records counts
 if (currentLocation == "/index.html" || currentLocation == "/" ){
   getHomePageData();
 }
+// if on User Page show all user records
+if (currentLocation == "/users.html"){
+  showUsers();
+}
 
 
-// All users
 async function getData(query){
   const response = await fetch(base_url+query);
   const data = response.json()
@@ -72,18 +56,24 @@ async function getData(query){
 }
 
 // Get Users
-getData(users_url)
-  .then(users => {
-    
-    const showAllUsers = document.querySelector('.show-all-users');
-    
-    for (let user of users){
-      //console.log(user);
-      let li = document.createElement('li');
-      li.innerHTML = `${user.name}, ${user.barcode}, ${user.memberType}`;
-      showAllUsers.appendChild(li);
-    }
+function showUsers(){
+  console.log("fetching users")
+  getData(users_url)
+    .then(users => {
+      
+        
+      for (let user of users){
+        
+        let li = document.createElement('li');
+        li.setAttribute("class", "show-search-results__item--user")
+               
+        li.innerHTML = `<span>${user.name}</span>
+                        <span>${user.barcode}</span>
+                        <span> ${user.memberType}</span>`;
+        showAllUsers.appendChild(li);
+      }
   })
+}
 
 
 

@@ -17,8 +17,8 @@
     </div>
 
     <h3>All users</h3>
-    <ul class="show-all-users"> </ul>
+    <ul class="show-all-users show-search-results"> </ul>
   </div>  
 
-
+<script src="js/main.js"></script>
 {% endblock %}
