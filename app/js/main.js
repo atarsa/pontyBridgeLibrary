@@ -66,6 +66,22 @@ async function sendData(url, inputData){
   const data = await response.json()
   return data
 }
+
+// PUT request
+async function updateData(url, inputData){
+  const response = await fetch(url, {
+    method: "PUT",
+    body: JSON.stringify(inputData),
+    headers:{
+      'Content-Type': 'application/json'
+      }
+    });
+  
+  const data = await response.json()
+  return data
+}
+
+
 function showMessage(msg, status){
     messageDiv.style.display = "block";
     

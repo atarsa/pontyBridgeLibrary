@@ -10,6 +10,7 @@ showSearchResults.addEventListener("click", editElement);
 
 // SEARCh, UPDATE functions
 function search(e){
+  showSearchResults.innerHTML = "";
   let queryUrl = base_url+search_url;
   // get values from search form
   
@@ -32,16 +33,14 @@ function search(e){
   fetch(queryUrl)
     .then(resp => resp.json())
     .then(results => {
-      //remove animation after 3s, show results afterwards
+      //remove animation after 2s, show results afterwards
       setTimeout(function(){
         
         loadingAnimation.style.display = "none";
         showResults(results)
         
-    }, 3000);
-      
-
-      
+    }, 2000);
+           
     }
       )
     .catch(err => console.log(err));
@@ -106,11 +105,12 @@ function showResults(results) {
 }
 function editElement(e){
   if(e.target.parentElement.matches('.update-user')){
-    //console.log(e.target.parentElement.parentElement)
-    updateUser(e.target.parentElement.parentElement);
+    console.log(e.target.parentElement.parentElement.parentElement)
+    updateUser(e.target.parentElement.parentElement.parentElement);
+    
   } 
   else if(e.target.parentElement.matches('.delete-user')){
-     deleteItem('user',e.target.parentElement.parentElement);
+     deleteItem('user',e.target.parentElement.parentElement.parentElement);
     
   } else if(e.target.parentElement.matches('.delete-book')){
 
@@ -122,69 +122,65 @@ function editElement(e){
 function updateUser(target){
   // remove Event Listener to prevent creating new form with every click
   showSearchResults.removeEventListener("click", editElement);
-  console.log(target);
+  
   // Get element ID
-  console.log(target.attributes[0].value);
+  //console.log(target.attributes[0].value);
   let id = target.attributes[0].value;
   
   // create div with form to update user details
-  const div = document.createElement('div');
-  div.setAttribute("class", "update-user");
+  const updateUserForm = document.querySelector('.form--update-user');
+  const updateName = document.getElementById('js-update-name');
+  const updateMemberType = document.getElementById('js-update-member-type');
+  const updateUserBtn = document.getElementById('js-update-user');
   
-  //console.log(target.children[0].innerText);
-  //console.log(target.children[2].innerText);
-  const inputName = document.createElement("input");
-  inputName.setAttribute("type", "text");
-  inputName.value = target.children[0].innerText;
+  updateUserForm.style.display = "grid";
+ 
   
-  const inputMemberType = document.createElement("select");
-  const inputMemberTypeStudent = document.createElement("option");
-  inputMemberTypeStudent.setAttribute("value","student");
-  inputMemberTypeStudent.innerText = "Student";
-
-  const inputMemberTypeStaff = document.createElement("option");
-  inputMemberTypeStaff.setAttribute("value","staff");
-  inputMemberTypeStaff. innerText = "Staff";
-  inputMemberType.appendChild(inputMemberTypeStudent);
-  inputMemberType.appendChild(inputMemberTypeStaff);
   
-  const submitBtn = document.createElement('input');
-  submitBtn.setAttribute("type", "submit");
-  submitBtn.setAttribute("value", "Submit");
-
-  div.appendChild(inputName);
-  div.appendChild(inputMemberType);
-  div.appendChild(submitBtn);
-
-  target.appendChild(div);
-
-  submitBtn.addEventListener("click", function(){
-    //confirm("Are you sure you want to update this user?")
-    let queryUrl = `${base_url}${users_url}/${id}`;
-    let updatedData = {name: inputName.value,
-                      memberType: inputMemberType.value}
-
-    console.log("updating...");
-    console.log(queryUrl);
-    // PUT request to update data on the server
-    fetch(queryUrl, {
-      method: "PUT",
-      body: JSON.stringify(updatedData),
-      headers:{
-        'Content-Type': 'application/json'
-      }
-    }).then(res => res.json())
-    .then(response => console.log('Success:', JSON.stringify(response)))
-    .catch(error => console.error('Error:', error));
-
-    // Message if successfull
-    showSearchResults.innerHTML = "";
-    messageDiv.style.background = "green";
-    messageDiv.innerText = "User modified successfully";
-    // remove message after 3sec
-    setTimeout(function(){
-      messageDiv.innerHTML = "";}, 3000);
+  //updateUserForm.classList.toggle('.form--update-user--show');
+  updateName.value = target.children[0].innerText;
+  
+  
+  updateUserBtn.addEventListener("click", function(e){
     
+    let toUpdate = confirm("Are you sure you want to update this record?")
+    if (toUpdate){
+      let queryUrl = `${base_url}${users_url}/${id}`;
+      let updatedData = {name: updateName.value,
+                        memberType: updateMemberType.value}
+  
+      console.log("updating...");
+      console.log(queryUrl);
+      // PUT request to update data on the server
+      updateData(queryUrl, updatedData)
+        .then(response => {
+          console.log('Success:', JSON.stringify(response));
+          updateUserForm.style.display = "none";
+          showSearchResults. innerHTML = "";
+          loadingAnimation.style.display = "block";
+
+          //remove animation and clear input after 3sec, show message afterwards
+           setTimeout(function(){
+            loadingAnimation.style.display = "none";
+            showMessage("User modified successfully", true);
+          }, 1500);
+
+          // add event listner back in case of more searches
+          showSearchResults.addEventListener("click", editElement); 
+         
+        })
+        .catch(error => console.error('Error:', error));
+      
+        
+      } 
+      else{
+       // remove input form 
+       updateUserForm.style.display = "none";
+       showSearchResults.addEventListener("click", editElement);    
+  
+    }
+    
+    e.preventDefault();
   });
  
 }
@@ -192,29 +188,39 @@ function updateUser(target){
 
 function deleteItem(itemType,target){
   console.log(target.attributes[0].value);
-  confirm("Are you sure you want to delete this item?");
-  // Get element ID
-  let id = target.attributes[0].value;
+  const toDelete = confirm("Are you sure you want to delete this record?");
+  if (toDelete){
+    showSearchResults.innerHTML = "";
+    // show loading animation
+    loadingAnimation.style.display = "block";
+      // Get element ID
+    let id = target.attributes[0].value;
 
-  // Get query Url depending on type of item
-  let queryUrl;
-  if (itemType === "user"){
+    // Get query Url depending on type of item
+    let queryUrl;
+    if (itemType === "user"){
     queryUrl = `${base_url}${users_url}/${id}`;
-  } else if (itemType === "book"){
-    queryUrl = `${base_url}${books_url}/${id}`;
-  }
+    } else if (itemType === "book"){
+      queryUrl = `${base_url}${books_url}/${id}`;
+    }
     
   console.log("deleting...");
     
   // DELETE request to update data on the server
     fetch(queryUrl, {method: "DELETE"})
       .catch(error => console.error('Error:', error));
-
-    // Message if successfull
-    showSearchResults.innerHTML = "";
-    messageDiv.style.background = "red";
-    messageDiv.innerText = "Item deleted successfully";
-    // remove message after 3sec
+    //remove animation and clear input after 3sec, show message afterwards
     setTimeout(function(){
-      messageDiv.innerHTML = "";}, 3000);
+            
+      // clear input
+      
+      loadingAnimation.style.display = "none";
+      // TODO: false to have red background color, refactor
+      showMessage("Item deleted successfully", false);
+      
+  }, 3000);
+    
+
+  }
+  
 }
