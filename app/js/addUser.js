@@ -23,6 +23,9 @@ function addUser(e){
     memberType: userMemberTypeInput.value
   }
   let status;
+
+  // disable submit button to prevent double submission
+  addUserBtn.setAttribute('disabled', 'disabled');
   //show loading animation
   loadingAnimation.style.display = "block";
 
@@ -41,6 +44,9 @@ function addUser(e){
 
         loadingAnimation.style.display = "none";
         showMessage("User added successfully!", status);
+
+        // "undisable add button"
+        addUserBtn.disabled = false;
      }, 3000);
       
     })

@@ -2,12 +2,13 @@
 
 // --- UI variables ---
 const addBookBtn = document.getElementById('js-add-book');
+const addBookForm = document.getElementById('js-add-book-form');
 const messageDiv = document.querySelector('.message-add-book');
 
 const loadingAnimation = document.querySelector('.loading-animation');
 
 // ADD book event listener
-addBookBtn.addEventListener("click", addBook);
+addBookForm.addEventListener("submit", addBook);
 
   
 
@@ -18,7 +19,9 @@ function addBook(e){
   let inputISBN = document.getElementById('js-isbn-input');
   let inputAuthor = document.getElementById('js-author-input');
 
-   
+  // disable submit button to prevent double submission
+  addBookBtn.setAttribute('disabled', 'disabled');
+
   // Send POST request with book title and isbn, await response to get the book id
   let queryUrl = base_url+books_url;
   let bookData = {title: inputTitle.value,
@@ -27,7 +30,7 @@ function addBook(e){
   console.log(queryUrl);
   
   let status;
-  
+   
   //show loading animation
   loadingAnimation.style.display = "block";
 
@@ -50,18 +53,11 @@ function addBook(e){
 
               loadingAnimation.style.display = "none";
               showMessage("Book added successfully", status);
+              addBookBtn.disabled = false;
           }, 3000);
 
-            // // clean input fields
-            // console.log(inputTitle)
-            // inputTitle.value = "";
-            // inputISBN.value = "";
-            // inputAuthor.value = "";
-
-            // // send message that successfull
-            // status = true;
-            // showMessage("Book added successfully", status);
-            
+          
+                    
         });
     })
     .catch(err => {
