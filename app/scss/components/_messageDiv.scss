@@ -1,4 +1,101 @@
-.loading-animation {}
+$bluish: hsla(223, 67%, 65%, 1);
+$redish: hsla(360, 98%, 65%, 1);
+$greyish: hsla(0, 0%, 46%, 1);
+
+$width: 100px;
+$width-circle: 20px;
+
+.loading-animation {
+  width: $width;
+  height: $width / 2;
+  margin: auto;
+  position: relative;
+
+}
+
+.circle {
+  width: $width-circle;
+  height: $width-circle;
+  position: absolute;
+  border-radius: 50%;
+
+  &--1 {
+    background-color: $greyish;
+    top: 30%;
+    left: $width-circle/2;
+    animation: animate--1 2s ease infinite;
+
+  }
+
+  &--2 {
+    background-color: $greyish;
+    top: 30%;
+    left: 2 * $width-circle;
+    animation: animate--2 2s ease infinite;
+
+  }
+
+  &--3 {
+    background-color: $greyish;
+    top: 30%;
+    left: 3 * $width-circle + $width-circle/2;
+    animation: animate--3 2s ease infinite;
+
+  }
+}
+
+// TODO: move keafreames to diffrent file
+@keyframes animate--1 {
+  0% {
+    transform: scale(0);
+    background-color: hsla(0, 0%, 46%, 0.2);
+  }
+
+  20% {
+    transform: scale(0);
+    background-color: hsla(0, 0%, 46%, 1);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: hsla(0, 0%, 46%, 0.0);
+  }
+}
+
+@keyframes animate--2 {
+  0% {
+    transform: scale(0);
+    background-color: hsla(0, 0%, 46%, 0.2);
+  }
+
+  40% {
+    transform: scale(0);
+    background-color: hsla(0, 0%, 46%, 1);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: hsla(0, 0%, 46%, 0.0);
+  }
+}
+
+@keyframes animate--3 {
+  0% {
+    transform: scale(0);
+    background-color: hsla(0, 0%, 46%, 0.2);
+  }
+
+  60% {
+    transform: scale(0);
+    background-color: hsla(0, 0%, 46%, 1);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: hsla(0, 0%, 46%, 0.0);
+  }
+}
+
 
 .message {
   //width: 65%;
@@ -6,7 +103,7 @@
   padding: 0.8em 0.8em;
   text-align: center;
   //margin: 0 auto;
-  border: solid 1px #ccc;
+  border: solid 1px rgb(146, 145, 145);
   border-radius: 4px;
   box-shadow: 3px 3px rgba(241, 239, 239, 0.925);
 

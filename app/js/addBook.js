@@ -4,6 +4,8 @@
 const addBookBtn = document.getElementById('js-add-book');
 const messageDiv = document.querySelector('.message-add-book');
 
+const loadingAnimation = document.querySelector('.loading-animation');
+
 // ADD book event listener
 addBookBtn.addEventListener("click", addBook);
 
@@ -25,7 +27,10 @@ function addBook(e){
   console.log(queryUrl);
   
   let status;
-      
+  
+  //show loading animation
+  loadingAnimation.style.display = "block";
+
   sendData(queryUrl, bookData)
     .then(data => {
       //console.log(data)
@@ -34,15 +39,28 @@ function addBook(e){
       //console.log(authorPostUrl)
       sendData(authorPostUrl, authorData)
         .then(() => {
-            // clean input fields
-            console.log(inputTitle)
-            inputTitle.value = "";
-            inputISBN.value = "";
-            inputAuthor.value = "";
-
-            // send message that successfull
             status = true;
-            showMessage("Book added successfully", status);
+             //remove animation and clear input after 3sec, show message afterwards
+            setTimeout(function(){
+            
+              // clear input
+              inputTitle.value = "";
+              inputISBN.value = "";
+              inputAuthor.value = "";
+
+              loadingAnimation.style.display = "none";
+              showMessage("Book added successfully", status);
+          }, 3000);
+
+            // // clean input fields
+            // console.log(inputTitle)
+            // inputTitle.value = "";
+            // inputISBN.value = "";
+            // inputAuthor.value = "";
+
+            // // send message that successfull
+            // status = true;
+            // showMessage("Book added successfully", status);
             
         });
     })
@@ -53,7 +71,7 @@ function addBook(e){
       
     })
   
-    e.preventDefault();
+  e.preventDefault();
 }
 
 async function sendData(url, inputData){

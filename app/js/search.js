@@ -2,6 +2,7 @@
 const searchForm = document.querySelector('.search-form');
 const showSearchResults = document.querySelector('.show-search-results');
 const messageDiv = document.querySelector('.message');
+const loadingAnimation = document.querySelector('.loading-animation');
 
 // SEARCH, UPDATE event listeneres 
 searchForm.addEventListener("submit", search);
@@ -26,11 +27,23 @@ function search(e){
   }
   
   console.log(queryUrl);
- 
+  loadingAnimation.style.display = "block";
   // fetch results
   fetch(queryUrl)
     .then(resp => resp.json())
-    .then(results => showResults(results))
+    .then(results => {
+      //remove animation after 3s, show results afterwards
+      setTimeout(function(){
+        
+        loadingAnimation.style.display = "none";
+        showResults(results)
+        
+    }, 3000);
+      
+
+      
+    }
+      )
     .catch(err => console.log(err));
 
   e.preventDefault();

@@ -18,6 +18,11 @@
         <input type="submit" value="Submit" class="btn search-form__submit">
         <input type="reset" class="btn search-form__reset">  <!-- resets to default value / empty box -->
       </form>
+      <div class="loading-animation">
+        <span class="circle circle--1"></span>
+        <span class="circle circle--2"></span>
+        <span class="circle circle--3"></span>
+      </div>
       <ul class="show-search-results"></ul>
       <div class="message"> </div>
   </div>

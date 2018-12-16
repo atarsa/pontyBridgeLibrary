@@ -30,7 +30,9 @@
       </div>
     </form>
     <div class="loading-animation">
-      small circle
+      <span class="circle circle--1"></span>
+      <span class="circle circle--2"></span>
+      <span class="circle circle--3"></span>
     </div>
     <div class="message message--add-user"> Message</div>
 
