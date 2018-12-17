@@ -4,3 +4,17 @@
   display: none;
   animation: fadeIn 1s;
 }
+
+.loaned-books {
+  list-style: none;
+  animation: fadeIn 1s;
+
+  &__item {
+    padding: 0.4em 0.8em;
+
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr;
+
+
+  }
+}

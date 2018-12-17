@@ -22,17 +22,21 @@
       
       <h2>Hi, <span class="user-name"> </span>! </h2>
       <p>You have <span class="loaned-books-count"> </span> on loan.</p>
-      <ul class="loaned-books show-search-results">
+      <ul class="loaned-books">
       </ul>
     </div> 
 
     <div>
-      <p>Search for a book:</p>
-      <input type="search" class="js-book-search-input"placeholder="Book Title" required>
-      <input type="submit" value="Search" class="btn js-book-search" >
+      <p>What book would you like to loan?</p>
+      <form class="book-search-form">
+        <input type="search" class="js-book-search-input"placeholder="Book Title" required>
+        <input type="submit" value="Search" class="btn js-book-search" >
+      </form>  
     </div>
   </div>  
     
+   <ul class="show-search-results"> </ul>
+   <div class="message"> </div>
  
 </div>  
 
