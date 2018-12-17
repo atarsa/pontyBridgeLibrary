@@ -1,0 +1,41 @@
+<!-- loans.nunjucks -->
+{% extends "layout.nunjucks" %}
+
+{% block content%}
+
+<!-- Adds the navigation partial -->
+{% include "partials/navigation.nunjucks" %}
+
+<div class="main-content">
+  <h3>loans service</h3>
+  <div class="welcome-user ">
+    <h2>Hi, User!</h2>
+    <p>What's your barcode number, please?</p>
+    <form class="get-barcode-form">
+      <input type="search" class="js-barcode-input" placeholder="Barcode" pattern="\d{5,}" required>
+      <input type="submit" value="submit" class="btn js-barcode-search">
+    </form> 
+  </div>
+    
+  <div class="show-user-loans">
+    <div>  
+      
+      <h2>Hi, <span class="user-name"> </span>! </h2>
+      <p>You have <span class="loaned-books-count"> </span> on loan.</p>
+      <ul class="loaned-books show-search-results">
+      </ul>
+    </div> 
+
+    <div>
+      <p>Search for a book:</p>
+      <input type="search" class="js-book-search-input"placeholder="Book Title" required>
+      <input type="submit" value="Search" class="btn js-book-search" >
+    </div>
+  </div>  
+    
+ 
+</div>  
+
+<script src="js/main.js"></script>
+<script src="js/loans.js"></script>
+ {% endblock%}
