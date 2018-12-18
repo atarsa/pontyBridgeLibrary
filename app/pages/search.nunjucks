@@ -43,8 +43,9 @@
         <span class="circle circle--2"></span>
         <span class="circle circle--3"></span>
       </div>
-      <ul class="show-search-results"></ul>
       <div class="message"> </div>
+      <ul class="show-search-results"></ul>
+      
   </div>
 
 <script src="js/main.js"></script>

@@ -4,6 +4,7 @@ const showSearchResults = document.querySelector('.show-search-results');
 const messageDiv = document.querySelector('.message');
 const loadingAnimation = document.querySelector('.loading-animation');
 
+
 // SEARCH, UPDATE event listeneres 
 searchForm.addEventListener("submit", search);
 showSearchResults.addEventListener("click", editElement);  
@@ -91,11 +92,24 @@ function showResults(results) {
         deleteElm.setAttribute("href", "#");
         deleteElm.innerHTML = '<i class="fas fa-trash-alt"></i>';
         deleteElm.classList = "delete-book";
-        li.appendChild(deleteElm);
+        
+
+        // info icon, to show loan status of book on click
+        const infoElm = document.createElement('a');
+        infoElm.setAttribute("href", "#");
+        infoElm.innerHTML = '<i class="fas fa-info"></i>';
+        infoElm.classList = "loan-info";
+       
+        const buttonsDiv = document.createElement('div');
+        buttonsDiv.appendChild(infoElm);
+        buttonsDiv.appendChild(deleteElm);
+        li.appendChild(buttonsDiv);
       }
       
       showSearchResults.appendChild(li);
-      }
+     
+    }
+     
   } else {
     let li = document.createElement('li');
     li.innerText = "Sorry, no results found";
@@ -112,10 +126,15 @@ function editElement(e){
   else if(e.target.parentElement.matches('.delete-user')){
      deleteItem('user',e.target.parentElement.parentElement.parentElement);
     
-  } else if(e.target.parentElement.matches('.delete-book')){
-
-    deleteItem('book',e.target.parentElement.parentElement);
   } 
+  else if(e.target.parentElement.matches('.delete-book')){
+
+    deleteItem('book',e.target.parentElement.parentElement.parentElement);
+  } 
+  else if(e.target.parentElement.matches('.loan-info')){
+
+    showLoanInfo(e.target.parentElement.parentElement.parentElement);
+  }
 } 
 
 
@@ -127,7 +146,7 @@ function updateUser(target){
   //console.log(target.attributes[0].value);
   let id = target.attributes[0].value;
   
-  // create div with form to update user details
+  // get div with form to update user details
   const updateUserForm = document.querySelector('.form--update-user');
   const updateName = document.getElementById('js-update-name');
   const updateMemberType = document.getElementById('js-update-member-type');
@@ -223,4 +242,41 @@ function deleteItem(itemType,target){
 
   }
   
+}
+
+async function showLoanInfo(target){
+  
+  const bookId = target.attributes[0].value;
+  
+  let loanedBooks = await getAllLoanedBooks();
+  
+
+  // check if book is among loanedBooks 
+  let loaned = (loanedBooks.find(x => x.BookId == bookId)) // credits [1] 
+  if (loaned){
+        
+    let user = await getUserName(loaned.UserId);
+    messageDiv.innerHTML = `<p> Book loaned by ${user.name} (${user.barcode}) </p> <p> Due back on: ${loaned.dueDate}</p>`;
+
+    messageDiv.style.display = "block";
+
+                            
+    console.log(`${bookId} loaned by ${user.name}`)
+  } else {
+    messageDiv.innerHTML = `<p> Book available </p>`;
+
+    messageDiv.style.display = "block";
+    console.log(`${bookId} available`)
+  }
+  
+
+}
+
+async function getUserName(id){
+    let queryUrl = users_url + `/${id}`; 
+    return await getData(queryUrl)   
+}
+
+async function getAllLoanedBooks(){
+    return await getData("/loans")   
 }

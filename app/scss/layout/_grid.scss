@@ -81,7 +81,8 @@ footer {
 
   &__item--book {
     display: inline-grid;
-    grid-template-columns: 2fr 2fr 1fr;
+    grid-template-columns: 2fr repeat(3, 1fr);
+    ;
 
   }
 }
