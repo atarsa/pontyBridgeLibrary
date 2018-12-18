@@ -84,7 +84,7 @@ function showUserLoanedBooks(loans){
         const li = document.createElement('li');
         li.setAttribute("class", "loaned-books__item")
         li.innerHTML = `<span>${book.title}</span>
-                        <span>${loan.dueDate}</span>`;
+                        <span>${new Date(loan.dueDate).toLocaleDateString()}</span>`;
         
         showLoansUl.appendChild(li);
       })
@@ -193,7 +193,7 @@ function loanBook(e){
   let target = e.target.parentElement.parentElement 
   // get book id
   let bookID = target.attributes[0].value;
-  let dueDate = "2018-12-30"
+  let dueDate = generateDueDate();
   let dataToSend = {dueDate: dueDate};
   console.log(`user: ${userID}`);
   let query_url = base_url+users_url + `/${userID}/loans/${bookID}`; 
@@ -225,4 +225,19 @@ function loanBook(e){
     })
   
    e.preventDefault()
+}
+
+function generateDueDate(){
+  // credits: Punit Jajodia
+  // article: The Definitive Guide to DateTime Manipulation
+  // url: https://www.toptal.com/software/definitive-guide-to-datetime-manipulation
+  // Accessed 18.12.2018
+
+  const date = new Date();
+  const loanDuration = 14; // 2 weeks
+  const nextDate = date.getDate() + loanDuration;
+
+  date.setDate(nextDate)
+  return date.toLocaleDateString()
+
 }
