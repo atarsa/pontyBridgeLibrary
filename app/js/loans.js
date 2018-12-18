@@ -26,6 +26,7 @@ const messageDiv = document.querySelector('.message');
 getBarcodeForm.addEventListener("submit", barcodeSearch);
 
 let userID;
+
 // get user id
 function barcodeSearch(e){
   
@@ -51,7 +52,7 @@ function barcodeSearch(e){
         userID = response[0].id;
 
         // get loanded books
-        getLoanedBooks();
+        getUserLoanedBooks();
               
       }
       })
@@ -60,7 +61,7 @@ function barcodeSearch(e){
 }
 
 // show user's loans if any
-function showLoanedBooks(loans){
+function showUserLoanedBooks(loans){
   //create "header" for results
   const headerLi = document.createElement('li');
   headerLi.setAttribute("class", "loaned-books__item");
@@ -77,8 +78,8 @@ function showLoanedBooks(loans){
     let getBookUrl = `${books_url}/${loan.BookId}`;
     getData(getBookUrl)
       .then(book => {
-        console.log(book.title);
-        console.log(loan)
+        // console.log(book.title);
+        // console.log(loan)
 
         const li = document.createElement('li');
         li.setAttribute("class", "loaned-books__item")
@@ -89,12 +90,12 @@ function showLoanedBooks(loans){
       })
 
   }
-  // add evennt listener to Book Form
+  // add event listener to Book Form
   bookSearchForm.addEventListener("submit", getBooks);
 }
 // search for a book
 function getBooks(e){
-  //console.log(bookInput.value);
+ 
   let query_url = search_url + `?type=book&title=${bookInput.value}`;
   getData(query_url)
     .then(books => 
@@ -108,29 +109,51 @@ function getBooks(e){
 // list book results 
 function showBooksResults(books){
 
+  //get all books already on loan
+  let booksOnLoan = [];
+    
   showResultsUl.innerHTML = "";
   bookInput.value = "";
+
   if (books.length !== 0){
-    for (let book of books){
-      let id = book.id;
-      let li = document.createElement('li');
+    // GET request to all loans
+    getData("/loans")
+    .then(loans => {
+      for (let loan of loans){
+        booksOnLoan.push(loan.BookId);
+      }
       
-      li.setAttribute("data-bookId", id);
-      li.setAttribute("class", "show-search-results__item--book")
-      li.innerHTML = `<span>${book.title}</span>
-                      <span>${book.isbn}</span>`;
+      for (const book of books){
+        let id = book.id;
+        let li = document.createElement('li');
         
-      const loanElm = document.createElement('a');
-      loanElm.setAttribute("href", "#");
-      loanElm.innerHTML = '<i class="fas fa-plus-circle"></i>';
-      loanElm.classList = "loan-book";
-      li.appendChild(loanElm);
-      
-      showResultsUl.appendChild(li);
-      showResultsUl.addEventListener("click", loanBook);
-    } 
-    
-  }  else {
+        li.setAttribute("data-bookId", id);
+        li.setAttribute("class", "show-search-results__item--book")
+        li.innerHTML = `<span>${book.title}</span>
+                        <span>${book.isbn}</span>`;
+        
+        const loanElm = document.createElement('a');
+        loanElm.setAttribute("href", "#");
+        
+        // check if book loaned already
+          if (booksOnLoan.includes(book.id) ){
+            console.log(`loaned, ${book.id}`)
+            loanElm.innerHTML = 'loaned';
+            loanElm.classList = "loaned";
+        } else {
+            console.log(`available, ${book.id}`)
+            loanElm.innerHTML = `<i class="fas fa-plus-circle"></i>`
+            loanElm.classList = "loan-book";
+        }
+                
+        li.appendChild(loanElm);
+        
+        showResultsUl.appendChild(li);
+        showResultsUl.addEventListener("click", loanBook);
+      } 
+    });
+  } 
+  else {
     let li = document.createElement('li');
     li.innerText = "Sorry, no results found";
     showResultsUl.appendChild(li);
@@ -138,7 +161,7 @@ function showBooksResults(books){
   
 }
 
-function getLoanedBooks(){
+function getUserLoanedBooks(){
   let query_url = users_url + `/${userID}/loans`;
 
   getData(query_url)  
@@ -157,7 +180,7 @@ function getLoanedBooks(){
             loandedBooksCountSpan.innerText = `${bookCount} books`;
           }
 
-          showLoanedBooks(loans);
+          showUserLoanedBooks(loans);
         
         }
       }
@@ -180,28 +203,26 @@ function loanBook(e){
   sendData(query_url, dataToSend)
     .then(response => {
       console.log(response);
-      // msg if loanded successfully 
+       
+      // clear all results and "hide" them
+      showResultsUl.innerHTML = "";
       showResultsUl.style.display = "none";
+      
       showLoansUl.innerHTML = "";
-      showLoansUl.style.display = "none";
+      showUserLoansDiv.style.display = "none";
+      // add loading animation?
+      // msg if loaned successfully
       showMessage(`Book loaned. Due back on ${dueDate}.`, true);
-
       
       // update loaned books list and counts 
       setTimeout(function(){
-        showLoansUl.style.display = "block";
-        getLoanedBooks();
+        showUserLoansDiv.style.display = "block";
+        showResultsUl.style.display = "block";
+        getUserLoanedBooks();
+        
       }, 3000);
       
     })
   
-  
-  e.preventDefault()
+   e.preventDefault()
 }
-// add date
-
-
-
-// check if book loaned already??
-
-// POST request
