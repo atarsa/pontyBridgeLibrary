@@ -7,12 +7,10 @@
   {% include "partials/navigation.nunjucks" %}
   <div class="main-content">
 
-    <!-- external url to my local server -->
-    {# <form action="http://192.168.0.15:8000/users" method="POST" class="add-form"> #}
     <form class="add-form">
       <div class="add-form__elm"> 
         <label for="full-name">Full Name:</label>
-        <input type="text" id="js-full-name" name="name" required>
+        <input type="text" id="js-full-name" name="name" placeholder="John Doe" required>
       </div>
       <div class="add-form__elm">
         <label for="barcode">Barcode:</label>
@@ -37,7 +35,9 @@
     <div class="message message--add-user"> Message</div>
 
   </div>
+{% endblock %}
 
-<script src= "js/main.js"></script>
-<script src="js/addUser.js"></script>  
+{% block js %}
+  <script src= "js/main.js"></script>
+  <script src="js/addUser.js"></script>  
 {% endblock %}

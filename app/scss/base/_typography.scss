@@ -26,3 +26,11 @@ body {
   font-size: $base-font-size;
   line-height: $base-line-height;
 }
+
+.nav-container__elm a,
+.nav-container__elm .dropbtn {
+  color: azure;
+  text-decoration: none;
+  text-align: center;
+
+}

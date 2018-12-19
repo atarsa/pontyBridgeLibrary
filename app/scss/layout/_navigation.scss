@@ -1,22 +1,70 @@
 /*** Navigation layout ***/
-.nav-sidebar {
-  // top: 5em;
-  border-right: solid 5px $purple;
+nav {
+  width: 100%;
 }
 
-.nav-sidebar ul {
+.nav-container {
+  display: flex;
+  justify-content: end;
+  overflow: hidden;
+  background-color: rgb(133, 114, 150);
+
+  &__elm {
+    align-self: stretch;
+    justify-self: center;
+    flex: 0 1 8.5em;
+    background-color: rgb(133, 114, 150);
+    padding: 0.2em;
+    margin: 0 0.4em;
+
+    & a {
+      display: block;
+      padding: 0.8em 0;
+    }
+  }
+}
+
+.dropdown {
+  overflow: hidden;
+}
+
+.dropbtn {
+  flex: 1;
+  height: 3em;
+  background-color: rgb(133, 114, 150);
+  border: none;
+  outline: none;
+  margin: 0;
+  cursor: pointer; // mouse pointer to work on mobile when :hover
+}
+
+.dropdown-content {
+  display: none;
+  margin: 0;
+  position: absolute;
+  cursor: pointer;
+  min-width: 8.5em;
+  background-color: rgb(133, 114, 150);
+  box-shadow: 4px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+
+  & a {
+    display: block;
+    text-decoration: none;
+    text-align: left;
+    padding: 0.2em 0.4em;
+
+
+  }
+}
+
+// add :focus for mobile devices
+.dropdown:hover .dropdown-content,
+.dropdown:focus .dropdown-content {
   display: block;
-  margin-left: 2em;
-  padding: 0.5em 0;
-  list-style: none;
-
 }
 
-.nav-sidebar li {
-  padding: 0.3em;
-}
-
-.nav-sidebar a {
-
-  text-decoration: none;
+.dropdown-content a:hover,
+.dropdown-content a:focus {
+  background-color: rgba(200, 198, 202, 0.788)
 }

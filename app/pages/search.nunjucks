@@ -16,7 +16,7 @@
         </select>
         <input type="search" id="search" name="search" required class="search-form__search-input"> 
         <input type="submit" value="Submit" class="btn search-form__submit">
-        <input type="reset" class="btn search-form__reset">  <!-- resets to default value / empty box -->
+        
       </form>
       <!-- modify user input -->
       <form class="form--update-user">
@@ -47,7 +47,9 @@
       <ul class="show-search-results"></ul>
       
   </div>
+{% endblock %}
 
-<script src="js/main.js"></script>
-<script src="js/search.js"></script>
+{% block js %}
+  <script src="js/main.js"></script>
+  <script src="js/search.js"></script>
 {% endblock %}

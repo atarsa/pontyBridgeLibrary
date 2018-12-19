@@ -33,9 +33,9 @@
 
     </div> <!-- end .main-content -->
 
+{% endblock %}
 
-
-
-<script src="js/main.js"></script>
-<script src="js/addBook.js"></script>
+{% block js %}
+  <script src="js/main.js"></script>
+  <script src="js/addBook.js"></script>
 {% endblock %}

@@ -3,17 +3,20 @@
  ***********/
 // needs to work on grid!! just quick prototype!!!
 .container {
-  //background-color: aquamarine;
+
   margin: 0 auto;
   display: grid;
   max-width: 1250px;
   height: 100%;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 1fr;
+  grid-template-rows: 8.5em 3.5em 1fr 50px;
+  box-sizing: border-box;
+  // mobile first
   grid-template-areas:
-    "header header"
-    "side-bar main-content"
-    "side-bar main-content"
-    "footer footer";
+    "header "
+    "nav "
+    "main-content "
+    "footer ";
 }
 
 header {
@@ -26,11 +29,11 @@ footer {
 
 .main-content {
   grid-area: main-content;
-  margin: 1em 2em;
-
+  padding: 2em 1em;
 }
 
-/*** Search page grid ***/
+
+/*** Search Page grid ***/
 .search-para {
   grid-column: 1;
   align-self: center;
@@ -38,38 +41,64 @@ footer {
 }
 
 .search-form {
-  width: 70%;
+  //width: 70%;
+  width: 100%;
   display: grid;
-  grid-template-columns: 7em 1fr 1fr;
+  // grid-template-columns: 7em 1fr 1fr;
+  // grid-gap: 0.5em;
+
+  // & label {
+  //   grid-column: 1/3;
+  //   justify-self: start;
+  //   align-self: end;
+  // }
+
+  // &__select {
+  //   grid-column: 1/2;
+  //   align-self: stretch;
+  // }
+
+  // &__search-input {
+  //   grid-column: 2 / 4;
+  //   align-self: end;
+  // }
+
+  // &__submit {
+  //   grid-column: 2 /3;
+  // }
+
+  // &__reset {
+  //   grid-column: 3 /4;
+  // }
+  grid-template-columns: 7em 1fr;
   grid-gap: 0.5em;
 
   & label {
-    grid-column: 1/3;
+    grid-column: 1/2;
     justify-self: start;
     align-self: end;
   }
 
   &__select {
-    grid-column: 1/2;
+    grid-column: 2/3;
     align-self: stretch;
+    cursor: pointer;
   }
 
   &__search-input {
-    grid-column: 2 / 4;
+    grid-column: 1 / 3;
     align-self: end;
   }
 
   &__submit {
-    grid-column: 2 /3;
+    grid-column: 1 /3;
   }
 
-  &__reset {
-    grid-column: 3 /4;
-  }
 }
 
 .show-search-results {
-  margin-top: 2em;
+  margin-top: 1em;
+  margin-left: -1em;
   display: grid;
   grid-template-columns: 1fr;
 
@@ -81,13 +110,22 @@ footer {
 
   &__item--book {
     display: inline-grid;
-    grid-template-columns: 2fr repeat(3, 1fr);
-    ;
+    grid-template-columns: 2fr repeat(2, 1fr);
 
+  }
+
+  &__item--user,
+  &__item--book {
+    padding: 1em 0;
+
+    & span {
+      padding: 0 0.4em;
+    }
   }
 }
 
-/*** Add User Page ***/
+
+/*** Add User/Book Page ***/
 .add-form {
   width: 70%;
   display: grid;
@@ -96,7 +134,41 @@ footer {
 
   &__elm {
     display: inline-grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 8em 1fr;
+
+
+    & label {
+      justify-self: end;
+      padding: 0.4em 0.8em;
+    }
+
+    & .btn {
+      grid-column: 2/3;
+
+    }
+  }
+}
+
+
+.form--update-user {
+  display: none;
+  //padding: 0.4em 0.8em;
+  //display: none;
+  grid-template-columns: 1fr;
+  justify-content: center;
+  align-items: center;
+
+
+
+  &__elm {
+    display: inline-grid;
+    grid-template-columns: 8em 1fr;
+    padding: 0.4em;
+
+    & select,
+    input {
+      padding: 0.4em 0.8em;
+    }
 
     & label {
       justify-self: end;
@@ -109,11 +181,11 @@ footer {
   }
 }
 
+
 .loading-animation {
   display: none;
 }
 
 .message {
   display: none;
-
 }

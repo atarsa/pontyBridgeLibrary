@@ -1,5 +1,29 @@
 /*** logo component styles ***/
+
 .logo {
-  color: $color-logo;
-  text-decoration: none;
+  color: $white;
+  padding: 0.4rem;
+  margin: 0.8em;
+
+
+  & .fa-book {
+    font-size: 2.5em;
+    padding: 0.1em;
+    display: inline-block;
+    vertical-align: text-bottom;
+  }
+
+  & h2 {
+    display: inline-block;
+    font-size: 1.2em;
+
+    & a {
+      box-sizing: border-box;
+      color: #fff;
+      text-decoration: none;
+      padding: 0.8em 0;
+
+    }
+  }
+
 }

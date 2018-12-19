@@ -14,14 +14,16 @@
 'layout/header',
 'layout/footer',
 'layout/sidebar',
-'layout/forms',
 'layout/search-results';
 
 
 @import 'components/logo',
 'components/form',
 'components/buttons',
+'components/animations',
 'components/messageDiv';
 
 @import 'pages/home',
+'pages/books',
+'pages/search',
 'pages/loans';

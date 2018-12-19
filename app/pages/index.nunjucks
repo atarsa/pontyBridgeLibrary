@@ -1,7 +1,7 @@
 <!-- index.nunjucks -->
 {% extends "layout.nunjucks" %}
 
-{% block content%}
+{% block content %}
 
 
 <!-- Adds the navigation partial -->
@@ -9,12 +9,16 @@
     <div class="main-content">
       <h2> Welcome to the PontryBridge University Library!</h2>
       <h3>The Library has the following records counts:</h3>
-      <ul>
+      <ul class="library-info">
         <li>Books: <span id="books-count"></span></li>
         <li>Books available: <span id="books-av-count"></span></li>
         <li>Users: <span id="users-count"></span></li>
       </ul>
     </div>  
 
-<script src="js/main.js"></script>
- {% endblock%}
+
+ {% endblock %}
+
+{% block js %}
+  <script src="js/main.js"></script>
+{% endblock %}

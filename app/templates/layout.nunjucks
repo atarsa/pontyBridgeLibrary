@@ -15,10 +15,14 @@
 
   <div class="container">
     <header class="top-header">
-      <h1>
-        <a href="/index.html" class="logo">
-        PontyBridge University</a>
-      </h1>
+      <div class="logo">
+        <i class="fas fa-book"> </i>
+       
+       <h2>
+        <a href="/index.html" > 
+               PontyBridge University<br> Library</a>
+       </h2>        
+      </div>
     </header>
   
   <!-- You write code for this content block in another file -->
@@ -28,5 +32,7 @@
       <div> Placeholder for footer </div>
     </footer>
   </div> <!-- end of .container -->
+  <!-- add js files -->
+  {%block js %} {% endblock %}
 </body>
 </html>

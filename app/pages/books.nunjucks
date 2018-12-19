@@ -7,10 +7,13 @@
 {% include "partials/navigation.nunjucks" %}
   <div class="main-content">
 
-    <div>
-        <input type="search" name="book-search" id="js-book-search" placeholder="I'm looking for...">
-        <input type="submit" value="Search" class="btn">
-        <a href="/add_book.html">
+    <div class="book-search">
+        <div class="book-search__elm"> 
+          <input type="search" name="book-search" id="js-book-search" class="book-search__elm" placeholder="I'm looking for...">
+          <i class="fas fa-search"></i>
+        </div>
+                
+        <a class="book-search__elm" href="/add_book.html">
           <button class="btn">Add new book</button>
         </a>
         
@@ -20,5 +23,9 @@
     <ul class="show-all-books show-search-results"> </ul>
   </div>  
 
-<script src="js/main.js"></script>
+
 {% endblock %}
+  
+{% block js %}
+  <script src="js/main.js"></script>
+ {% endblock %}

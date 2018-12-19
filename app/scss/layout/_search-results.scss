@@ -1,18 +1,8 @@
-.show-search-results {
-  list-style: none;
+/* *** search results styles *** */
 
-  &__item--book,
-  &__item--user {
-    padding: 0.4em 0.8em;
-
-    & span,
-    & a {
-      padding: 0.4em 0.8em;
-    }
-
-    & div {
-      padding: 0.3em 0;
-    }
-
-  }
+/* loans page */
+.loaned-books {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin-left: -1em;
 }

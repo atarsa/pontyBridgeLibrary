@@ -7,7 +7,7 @@
 {% include "partials/navigation.nunjucks" %}
 
 <div class="main-content">
-  <h3>loans service</h3>
+  <h3>Loans Service</h3>
   <div class="welcome-user ">
     <h2>Hi, User!</h2>
     <p>What's your barcode number, please?</p>
@@ -39,7 +39,10 @@
    <div class="message"> </div>
  
 </div>  
+{% endblock %}
 
-<script src="js/main.js"></script>
-<script src="js/loans.js"></script>
- {% endblock%}
+{% block js %}
+  <script src="js/main.js"></script>
+  <script src="js/loans.js"></script>
+{% endblock %}
+ 
