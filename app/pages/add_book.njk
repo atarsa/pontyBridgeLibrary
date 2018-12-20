@@ -1,10 +1,11 @@
 <!-- add_bok.nunjucks -->
-{% extends "layout.nunjucks" %}
+{% set title = 'Add New Book' %}
+{% extends "layout.njk" %}
 
 {% block content%}
 
   <!-- Adds the navigation partial -->
-  {% include "partials/navigation.nunjucks" %}
+  {% include "partials/navigation.njk" %}
     <div class="main-content">
 
     <form id="js-add-book-form" class="add-form">

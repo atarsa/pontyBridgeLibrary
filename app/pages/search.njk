@@ -1,10 +1,11 @@
  <!-- search.nunjucks -->
-{% extends "layout.nunjucks" %}
+ {% set title = 'Search' %}
+{% extends "layout.njk" %}
 
 {% block content%}
 
 <!-- Adds the navigation partial -->
-{% include "partials/navigation.nunjucks" %}
+{% include "partials/navigation.njk" %}
   <div class="main-content">
     {# <p class="search-para">I'm looking for...</p> #}
     <form class="search-form">

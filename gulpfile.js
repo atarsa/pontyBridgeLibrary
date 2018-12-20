@@ -44,7 +44,7 @@ gulp.task('browserSync', function(){
 // To watch more than one task:
 gulp.task('watch', ['browserSync', 'sass', 'nunjucks'], function(){
   gulp.watch('app/scss/**/*.scss', ['sass']);
-  gulp.watch('app/**/*.nunjucks', ['nunjucks']);
+  gulp.watch('app/**/*.njk', ['nunjucks']);
   // Reloads the browser whenever HTML or JS files change
   gulp.watch()
   gulp.watch('app/*.html', browserSync.reload);
