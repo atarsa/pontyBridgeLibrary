@@ -1,18 +1,21 @@
 /*** Navigation layout ***/
 nav {
   width: 100%;
+  background-color: rgb(133, 114, 150);
 }
 
 .nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
   justify-content: end;
   overflow: hidden;
-  background-color: rgb(133, 114, 150);
+
 
   &__elm {
     align-self: stretch;
     justify-self: center;
-    flex: 0 1 8.5em;
+    flex: 0 1 9.5em;
     background-color: rgb(133, 114, 150);
     padding: 0.2em;
     margin: 0 0.4em;

@@ -6,3 +6,20 @@ $purple: hsl(288, 23%, 38%);
 $color-logo: $white;
 $msg-success: hsla(152, 66%, 65%, 1);
 $msg-alert: hsla(346, 66%, 65%, 1);
+
+/*** mediaQuries breakpoints ***/
+// credits [2] 
+// Lukasz Florczak https://medium.com/codeartisan/breakpoints-and-media-queries-in-scss-46e8f551e2f2 accessed 20/12/18
+
+
+// Small tablets and large smartphones (landscape view)
+$screen-sm-min: 576px;
+
+// Small tablets (portrait view)
+$screen-md-min: 768px;
+
+// Tablets and small desktops
+$screen-lg-min: 992px;
+
+// Large tablets and desktops
+$screen-xl-min: 1200px;

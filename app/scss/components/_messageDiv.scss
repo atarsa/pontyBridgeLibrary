@@ -98,14 +98,15 @@ $width-circle: 20px;
 
 
 .message {
-  //width: 65%;
-  //height: 2.5em;
+  display: block;
+  width: 100%;
   padding: 0.8em 0.8em;
   text-align: center;
   //margin: 0 auto;
-  border: solid 1px rgb(146, 145, 145);
+  border: solid 1px rgb(236, 231, 231);
   border-radius: 4px;
   box-shadow: 3px 3px rgba(241, 239, 239, 0.925);
+  background-color: rgb(236, 228, 236);
 
   &--success {
     background-color: $msg-success;
@@ -113,5 +114,9 @@ $width-circle: 20px;
 
   &--alert {
     background-color: $msg-alert;
+  }
+
+  @include xl {
+    width: 60%;
   }
 }
