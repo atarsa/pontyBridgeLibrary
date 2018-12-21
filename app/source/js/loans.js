@@ -1,36 +1,11 @@
-// --- Loans Page ---
-
-// UI variables
-// showResultsUl from main.js
-const welcomeUserDiv = document.querySelector('.welcome-user');
-const welcomeUserH2 = document.querySelector('.welcome-user h2');
-
-const getBarcodeForm = document.querySelector('.get-barcode-form');
-const barcodeSearchInput = document.querySelector('.js-barcode-input');
-const barcodeSearchBtn = document.querySelector('.js-barcode-search');
-
-const showUserLoansDiv = document.querySelector('.show-user-loans');
-const userNameSpan = document.querySelector('.user-name');
-const loandedBooksCountSpan = document.querySelector('.loaned-books-count');
-
-const showLoansUl = document.querySelector('.loaned-books');
-
-const bookSearchForm = document.querySelector('.book-search-form');
-const bookInput = document.querySelector('.js-book-search-input');
-const bookSearchBtn = document.querySelector('.js-book-search');
-
-// also declared on search.js
-const messageDiv = document.querySelector('.message');
-
-// event listeners
-getBarcodeForm.addEventListener("submit", barcodeSearch);
+// ===== loans.js =====
 
 let userID;
 
 // get user id
 function barcodeSearch(e){
   
-  let barcode = barcodeSearchInput.value
+  let barcode = UI.barcodeSearchInput.value
   let query_url = search_url + `?type=user&barcode=${barcode}`;
   console.log(query_url);
 
@@ -38,16 +13,16 @@ function barcodeSearch(e){
     .then(response => {
       // if no barcode found
       if(response.length === 0){
-        welcomeUserH2.innerText = `Sorry, no record found.`;
-        barcodeSearchInput.value = "";
+        UI.welcomeUserH2.innerText = `Sorry, no record found.`;
+        UI.barcodeSearchInput.value = "";
       } else {
         
         // hide barcode search
-        welcomeUserDiv.style.display = "none";
+        UI.welcomeUserDiv.style.display = "none";
         
         // show user loans
-        showUserLoansDiv.style.display = "block";
-        userNameSpan.innerText = response[0].name; 
+        UI.showUserLoansDiv.style.display = "block";
+        UI.userNameSpan.innerText = response[0].name; 
 
         userID = response[0].id;
 
@@ -69,7 +44,7 @@ function showUserLoanedBooks(loans){
   headerLi.style.fontWeight = "bold";
   headerLi.innerHTML = `<span>Title</span>
                         <span>Due Back</span>`
-  showLoansUl.appendChild(headerLi);
+  UI.showLoansUl.appendChild(headerLi);
   
 // show list of loaned books
   for (let loan of loans){
@@ -86,17 +61,17 @@ function showUserLoanedBooks(loans){
         li.innerHTML = `<span>${book.title}</span>
                         <span>${new Date(loan.dueDate).toLocaleDateString()}</span>`;
         
-        showLoansUl.appendChild(li);
+        UI.showLoansUl.appendChild(li);
       })
 
   }
   // add event listener to Book Form
-  bookSearchForm.addEventListener("submit", getBooks);
+  UI.bookSearchForm.addEventListener("submit", getBooks);
 }
 // search for a book
 function getBooks(e){
  
-  let query_url = search_url + `?type=book&title=${bookInput.value}`;
+  let query_url = search_url + `?type=book&title=${UI.bookInput.value}`;
   getData(query_url)
     .then(books => 
       { 
@@ -112,8 +87,8 @@ function showBooksResults(books){
   //get all books already on loan
   let booksOnLoan = [];
     
-  showResultsUl.innerHTML = "";
-  bookInput.value = "";
+  UI.showSearchResults.innerHTML = "";
+  UI.bookInput.value = "";
 
   if (books.length !== 0){
     // GET request to all loans
@@ -148,15 +123,15 @@ function showBooksResults(books){
                 
         li.appendChild(loanElm);
         
-        showResultsUl.appendChild(li);
-        showResultsUl.addEventListener("click", loanBook);
+        UI.showSearchResults.appendChild(li);
+        UI.showSearchResults.addEventListener("click", loanBook);
       } 
     });
   } 
   else {
     let li = document.createElement('li');
     li.innerText = "Sorry, no results found";
-    showResultsUl.appendChild(li);
+    UI.showSearchResults.appendChild(li);
   }
   
 }
@@ -170,14 +145,14 @@ function getUserLoanedBooks(){
       // get loanded books count
       let bookCount = loans.length;
       if (bookCount === 0){
-        loandedBooksCountSpan.innerText = "no book";
+        UI.loandedBooksCountSpan.innerText = "no book";
         // add evennt listener to Book Form
-        bookSearchForm.addEventListener("submit", getBooks);
+        UI.bookSearchForm.addEventListener("submit", getBooks);
       } else {
           if (bookCount === 1){
-            loandedBooksCountSpan.innerText = "1 book";
+            UI.loandedBooksCountSpan.innerText = "1 book";
           } else {
-            loandedBooksCountSpan.innerText = `${bookCount} books`;
+            UI.loandedBooksCountSpan.innerText = `${bookCount} books`;
           }
 
           showUserLoanedBooks(loans);
@@ -205,19 +180,19 @@ function loanBook(e){
       console.log(response);
        
       // clear all results and "hide" them
-      showResultsUl.innerHTML = "";
-      showResultsUl.style.display = "none";
+      UI.showSearchResults.innerHTML = "";
+      UI.showSearchResults.style.display = "none";
       
-      showLoansUl.innerHTML = "";
-      showUserLoansDiv.style.display = "none";
+      UI.showLoansUl.innerHTML = "";
+      UI.showUserLoansDiv.style.display = "none";
       // add loading animation?
       // msg if loaned successfully
       showMessage(`Book loaned. Due back on ${dueDate}.`, true);
       
       // update loaned books list and counts 
       setTimeout(function(){
-        showUserLoansDiv.style.display = "block";
-        showResultsUl.style.display = "block";
+        UI.showUserLoansDiv.style.display = "block";
+        UI.showSearchResults.style.display = "block";
         getUserLoanedBooks();
         
       }, 3000);
@@ -228,11 +203,7 @@ function loanBook(e){
 }
 
 function generateDueDate(){
-  // credits: Punit Jajodia
-  // article: The Definitive Guide to DateTime Manipulation
-  // url: https://www.toptal.com/software/definitive-guide-to-datetime-manipulation
-  // Accessed 18.12.2018
-
+  // credits: [2] 
   const date = new Date();
   const loanDuration = 14; // 2 weeks
   const nextDate = date.getDate() + loanDuration;

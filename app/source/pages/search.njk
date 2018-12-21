@@ -39,18 +39,14 @@
       
       </form>
 
-      <div class="loading-animation">
-        <span class="circle circle--1"></span>
-        <span class="circle circle--2"></span>
-        <span class="circle circle--3"></span>
-      </div>
-      <div class="message"> </div>
+    <!-- Adds animation partial -->
+   {% include "partials/animation.njk" %} 
       <ul class="show-search-results"></ul>
       
   </div>
 {% endblock %}
 
 {% block js %}
-  <script src="js/main.js"></script>
-  <script src="js/search.js"></script>
+  <script src="source/js/all.js"></script>
+  
 {% endblock %}

@@ -28,17 +28,13 @@
         <input type="submit" id="js-add-user" value="Submit" class="btn">
       </div>
     </form>
-    <div class="loading-animation">
-      <span class="circle circle--1"></span>
-      <span class="circle circle--2"></span>
-      <span class="circle circle--3"></span>
-    </div>
-    <div class="message message--add-user"> Message</div>
-
+    
+    <!-- Adds animation partial -->
+   {% include "partials/animation.njk" %}
   </div>
 {% endblock %}
 
 {% block js %}
-  <script src= "js/main.js"></script>
-  <script src="js/addUser.js"></script>  
+  <script src= "source/js/all.js"></script>
+  
 {% endblock %}

@@ -1,20 +1,10 @@
 // --- Search Page ---
-const searchForm = document.querySelector('.search-form');
-const showSearchResults = document.querySelector('.show-search-results');
-const messageDiv = document.querySelector('.message');
-const loadingAnimation = document.querySelector('.loading-animation');
 
-
-// SEARCH, UPDATE event listeneres 
-searchForm.addEventListener("submit", search);
-showSearchResults.addEventListener("click", editElement);  
-
-// SEARCh, UPDATE functions
 function search(e){
-  showSearchResults.innerHTML = "";
+  UI.showSearchResults.innerHTML = "";
   let queryUrl = base_url+search_url;
-  // get values from search form
   
+  // get values from search form
   let searchType = document.getElementById('search-type').value;
   let searchInput = document.getElementById('search').value.toLowerCase();
   
@@ -29,7 +19,7 @@ function search(e){
   }
   
   console.log(queryUrl);
-  loadingAnimation.style.display = "block";
+  UI.loadingAnimation.style.display = "block";
   // fetch results
   fetch(queryUrl)
     .then(resp => resp.json())
@@ -37,7 +27,7 @@ function search(e){
       //remove animation after 2s, show results afterwards
       setTimeout(function(){
         
-        loadingAnimation.style.display = "none";
+        UI.loadingAnimation.style.display = "none";
         showResults(results)
         
     }, 2000);
@@ -51,7 +41,7 @@ function search(e){
   
 function showResults(results) {
   
-  showSearchResults.innerHTML = "";
+  UI.showSearchResults.innerHTML = "";
   document.getElementById('search').value = "";
   if (results.length !== 0){
     for (let result of results){
@@ -106,14 +96,14 @@ function showResults(results) {
         li.appendChild(buttonsDiv);
       }
       
-      showSearchResults.appendChild(li);
+      UI.showSearchResults.appendChild(li);
      
     }
      
   } else {
     let li = document.createElement('li');
     li.innerText = "Sorry, no results found";
-    showSearchResults.appendChild(li);
+    UI.showSearchResults.appendChild(li);
   }
   
 }
@@ -140,7 +130,7 @@ function editElement(e){
 
 function updateUser(target){
   // remove Event Listener to prevent creating new form with every click
-  showSearchResults.removeEventListener("click", editElement);
+  UI.showSearchResults.removeEventListener("click", editElement);
   
   // Get element ID
   //console.log(target.attributes[0].value);
@@ -175,17 +165,17 @@ function updateUser(target){
         .then(response => {
           console.log('Success:', JSON.stringify(response));
           updateUserForm.style.display = "none";
-          showSearchResults. innerHTML = "";
-          loadingAnimation.style.display = "block";
+          UI.showSearchResults. innerHTML = "";
+          UI.loadingAnimation.style.display = "block";
 
           //remove animation and clear input after 3sec, show message afterwards
            setTimeout(function(){
-            loadingAnimation.style.display = "none";
+            UI.loadingAnimation.style.display = "none";
             showMessage("User modified successfully", true);
           }, 1500);
 
           // add event listner back in case of more searches
-          showSearchResults.addEventListener("click", editElement); 
+          UI.showSearchResults.addEventListener("click", editElement); 
          
         })
         .catch(error => console.error('Error:', error));
@@ -195,7 +185,7 @@ function updateUser(target){
       else{
        // remove input form 
        updateUserForm.style.display = "none";
-       showSearchResults.addEventListener("click", editElement);    
+       UI.showSearchResults.addEventListener("click", editElement);    
   
     }
     
@@ -209,9 +199,9 @@ function deleteItem(itemType,target){
   console.log(target.attributes[0].value);
   const toDelete = confirm("Are you sure you want to delete this record?");
   if (toDelete){
-    showSearchResults.innerHTML = "";
+    UI.showSearchResults.innerHTML = "";
     // show loading animation
-    loadingAnimation.style.display = "block";
+    UI.loadingAnimation.style.display = "block";
       // Get element ID
     let id = target.attributes[0].value;
 
@@ -256,17 +246,15 @@ async function showLoanInfo(target){
   if (loaned){
         
     let user = await getUserName(loaned.UserId);
-    messageDiv.innerHTML = `<p> Book loaned by ${user.name} (${user.barcode}) </p> <p> Due back on: ${loaned.dueDate}</p>`;
+    UI.messageDiv.innerHTML = `<p> Book loaned by ${user.name} (${user.barcode}) </p> <p> Due back on: ${loaned.dueDate}</p>`;
 
-    messageDiv.style.display = "block";
-
-                            
-    console.log(`${bookId} loaned by ${user.name}`)
+    UI.messageDiv.style.display = "block";
+          
+    
   } else {
-    messageDiv.innerHTML = `<p> Book available </p>`;
-
-    messageDiv.style.display = "block";
-    console.log(`${bookId} available`)
+    UI.messageDiv.innerHTML = `<p> Book available </p>`;
+    UI.messageDiv.style.display = "block";
+   
   }
   
 

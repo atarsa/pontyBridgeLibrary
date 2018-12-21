@@ -1,16 +1,4 @@
-// --- Add Book Page ---
-
-// --- UI variables ---
-const addBookBtn = document.getElementById('js-add-book');
-const addBookForm = document.getElementById('js-add-book-form');
-const messageDiv = document.querySelector('.message-add-book');
-
-const loadingAnimation = document.querySelector('.loading-animation');
-
-// ADD book event listener
-addBookForm.addEventListener("submit", addBook);
-
-  
+// ======= addBook.js =========
 
 // add book to db
 function addBook(e){
@@ -20,7 +8,7 @@ function addBook(e){
   let inputAuthor = document.getElementById('js-author-input');
 
   // disable submit button to prevent double submission
-  addBookBtn.setAttribute('disabled', 'disabled');
+  UI.addBookBtn.setAttribute('disabled', 'disabled');
 
   // Send POST request with book title and isbn, await response to get the book id
   let queryUrl = base_url+books_url;
@@ -32,7 +20,7 @@ function addBook(e){
   let status;
    
   //show loading animation
-  loadingAnimation.style.display = "block";
+  UI.loadingAnimation.style.display = "block";
 
   sendData(queryUrl, bookData)
     .then(data => {
@@ -51,13 +39,11 @@ function addBook(e){
               inputISBN.value = "";
               inputAuthor.value = "";
 
-              loadingAnimation.style.display = "none";
+              UI.loadingAnimation.style.display = "none";
               showMessage("Book added successfully", status);
-              addBookBtn.disabled = false;
+              UI.addBookBtn.disabled = false;
           }, 3000);
-
-          
-                    
+      
         });
     })
     .catch(err => {
@@ -70,15 +56,3 @@ function addBook(e){
   e.preventDefault();
 }
 
-async function sendData(url, inputData){
-  const response = await fetch(url, {
-    method: "POST",
-    body: JSON.stringify(inputData),
-    headers:{
-      'Content-Type': 'application/json'
-      }
-    });
-  
-  const data = await response.json()
-  return data
-}

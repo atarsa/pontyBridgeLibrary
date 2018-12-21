@@ -25,18 +25,14 @@
           <button id="js-add-book" class="btn">Submit</button>
         </div>
     </form>
-    <div class="loading-animation">
-      <span class="circle circle--1"></span>
-      <span class="circle circle--2"></span>
-      <span class="circle circle--3"></span>
-    </div>
-    <div class="message message-add-book"> </div>
+     <!-- Adds animation partial -->
+    {% include "partials/animation.njk" %}
 
     </div> <!-- end .main-content -->
 
 {% endblock %}
 
 {% block js %}
-  <script src="js/main.js"></script>
-  <script src="js/addBook.js"></script>
+  <script src="source/js/all.js"></script>
+  
 {% endblock %}
