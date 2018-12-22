@@ -1,0 +1,19 @@
+<!-- modify-user.nunjucks -->
+<form class="form--update-user">
+      
+  <div class="form--update-user__elm"> 
+    <label for="full-name">Full Name:</label>
+    <input type="text" id="js-update-name" name="name" required>
+  </div>
+  <div class="form--update-user__elm">
+    <label for="member-type">Member type:</label>
+    <select id="js-update-member-type" name="memberType" class="form--update-user__elm--select">  
+        <option value="Student" selected>Student</option>
+        <option value="Staff">Staff</option>
+    </select>
+  </div>
+  <div class="form--update-user__elm">
+    <input type="submit" id="js-update-user" value="Submit" class="btn">
+  </div>
+      
+</form>

@@ -107,6 +107,9 @@ function showResults(results) {
   }
   
 }
+
+
+
 function editElement(e){
   if(e.target.parentElement.matches('.update-user')){
     console.log(e.target.parentElement.parentElement.parentElement)
@@ -174,6 +177,13 @@ function updateUser(target){
             showMessage("User modified successfully", true);
           }, 1500);
 
+          // show list of updated books records if on books.html or users.html
+          setTimeout(function(){
+            if (currentLocation == "/users.html"){
+              showUsers();
+            }
+
+            }, 6000);
           // add event listner back in case of more searches
           UI.showSearchResults.addEventListener("click", editElement); 
          
@@ -223,12 +233,24 @@ function deleteItem(itemType,target){
             
       // clear input
       
-      loadingAnimation.style.display = "none";
+      UI.loadingAnimation.style.display = "none";
       // TODO: false to have red background color, refactor
-      showMessage("Item deleted successfully", false);
+      showMessage("Record deleted successfully");
+         
       
   }, 3000);
     
+  // show list of updated books records if on books.html or users.html
+  setTimeout(function(){
+    if (currentLocation == "/books.html"){
+      showBooks();
+    }
+    if (currentLocation == "/users.html"){
+      showUsers();
+      }
+
+  }, 6000);
+  
 
   }
   

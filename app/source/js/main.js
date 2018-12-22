@@ -24,12 +24,14 @@ if (currentLocation == "/index.html" || currentLocation == "/" ){
 if (currentLocation == "/users.html"){
   showUsers();
   UI.userSearchInput.addEventListener('keyup', filterResults);
+  UI.showSearchResults.addEventListener("click", editElement);
 }
 
 // if on Books Page show all books records
 if (currentLocation == "/books.html"){
   showBooks();
   UI.bookSearchInput.addEventListener('keyup', filterResults);
+  UI.showSearchResults.addEventListener("click", editElement);
 }
 
 // if on add_book Page 

@@ -19,8 +19,9 @@
         <input type="submit" value="Submit" class="btn search-form__submit">
         
       </form>
-      <!-- modify user input -->
-      <form class="form--update-user">
+      <!-- add modify user form -->
+      {% include "partials/modify-user.njk" %} 
+      {# <form class="form--update-user">
       
         <div class="form--update-user__elm"> 
           <label for="full-name">Full Name:</label>
@@ -37,9 +38,9 @@
         <input type="submit" id="js-update-user" value="Submit" class="btn">
       </div>
       
-      </form>
+      </form> #}
 
-    <!-- Adds animation partial -->
+    <!-- Adds animation and message partial -->
    {% include "partials/animation.njk" %} 
       <ul class="show-search-results"></ul>
       
