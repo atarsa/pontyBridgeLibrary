@@ -92,7 +92,7 @@ async function updateData(url, inputData){
 
 // ======= message and animation ============
 
-function showMessage(msg, status){
+function showMessage(msg, status = true){
     UI.messageDiv.style.display = "block";
     
     if (status){

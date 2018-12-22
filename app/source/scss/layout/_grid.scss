@@ -39,15 +39,9 @@ footer {
     width: 80vw;
   }
 
-  // // 992px window width and more
-  // @include lg {
-  //   width: 80vw;
-  // }
-
   // 1200px window width and more
   @include xl {
     max-width: 1200px;
-
   }
 }
 
@@ -106,7 +100,7 @@ footer {
 
   &__item--user {
     display: inline-grid;
-    grid-template-columns: 3fr repeat(3, 1fr);
+    grid-template-columns: 2fr repeat(3, 1fr);
 
   }
 

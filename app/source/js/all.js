@@ -147,7 +147,7 @@ async function updateData(url, inputData){
 
 // ======= message and animation ============
 
-function showMessage(msg, status){
+function showMessage(msg, status = true){
     UI.messageDiv.style.display = "block";
     
     if (status){
@@ -399,10 +399,8 @@ function barcodeSearch(e){
 function showUserLoanedBooks(loans){
   //create "header" for results
   const headerLi = document.createElement('li');
-  headerLi.setAttribute("class", "loaned-books__item");
-  headerLi.style.fontSize = "1.2em";
-  headerLi.style.fontWeight = "bold";
-  headerLi.innerHTML = `<span>Title</span>
+  headerLi.setAttribute("class", "loaned-books__item loaned-books__item--header");
+   headerLi.innerHTML = `<span>Title</span>
                         <span>Due Back</span>`
   UI.showLoansUl.appendChild(headerLi);
   
@@ -430,12 +428,22 @@ function showUserLoanedBooks(loans){
 }
 // search for a book
 function getBooks(e){
- 
+
+  // clean displayed results if any
+  UI.showSearchResults.innerHTML = "";
+  // show loading animation
+  UI.loadingAnimation.style.display = "block";
+
   let query_url = search_url + `?type=book&title=${UI.bookInput.value}`;
   getData(query_url)
     .then(books => 
       { 
-        showBooksResults(books)
+        //remove animation after 2s, show results afterwards
+        setTimeout(function(){
+          UI.loadingAnimation.style.display = "none";  
+                
+          showBooksResults(books)
+        }, 2000);
       })
     .catch(err => console.log(err));
   e.preventDefault();
@@ -443,18 +451,18 @@ function getBooks(e){
 
 // list book results 
 function showBooksResults(books){
-
+  
   //get all books already on loan
   let booksOnLoan = [];
     
-  UI.showSearchResults.innerHTML = "";
+  //UI.showSearchResults.innerHTML = "";
   UI.bookInput.value = "";
 
   if (books.length !== 0){
     // GET request to all loans
     getData("/loans")
     .then(loans => {
-      for (let loan of loans){
+        for (let loan of loans){
         booksOnLoan.push(loan.BookId);
       }
       
@@ -490,6 +498,7 @@ function showBooksResults(books){
   } 
   else {
     let li = document.createElement('li');
+    li.setAttribute("class", "li--no-results");
     li.innerText = "Sorry, no results found";
     UI.showSearchResults.appendChild(li);
   }
@@ -530,24 +539,28 @@ function loanBook(e){
   let bookID = target.attributes[0].value;
   let dueDate = generateDueDate();
   let dataToSend = {dueDate: dueDate};
-  console.log(`user: ${userID}`);
   let query_url = base_url+users_url + `/${userID}/loans/${bookID}`; 
-  console.log(query_url);
-
-
-  sendData(query_url, dataToSend)
-    .then(response => {
-      console.log(response);
-       
+  
       // clear all results and "hide" them
       UI.showSearchResults.innerHTML = "";
       UI.showSearchResults.style.display = "none";
       
       UI.showLoansUl.innerHTML = "";
       UI.showUserLoansDiv.style.display = "none";
-      // add loading animation?
+      
+       // show loading animation
+      UI.loadingAnimation.style.display = "block";
+   sendData(query_url, dataToSend)
+    .then(response => {
+             
+  
       // msg if loaned successfully
-      showMessage(`Book loaned. Due back on ${dueDate}.`, true);
+      setTimeout(function(){
+        UI.loadingAnimation.style.display = "none";
+        showMessage(`Book loaned. Due back on ${dueDate}.`);
+        
+      }, 2000);
+      
       
       // update loaned books list and counts 
       setTimeout(function(){
@@ -555,7 +568,7 @@ function loanBook(e){
         UI.showSearchResults.style.display = "block";
         getUserLoanedBooks();
         
-      }, 3000);
+      }, 5500);
       
     })
   

@@ -6,3 +6,10 @@
   grid-template-columns: 1fr;
   margin-left: -1em;
 }
+
+.li--no-results {
+  list-style: none;
+  font-size: 1.2em;
+  font-weight: $bold;
+  margin: 1em;
+}

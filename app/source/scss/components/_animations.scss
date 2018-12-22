@@ -11,3 +11,66 @@
     opacity: 1;
   }
 }
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+
+/* *** loading circles  aimation *** */
+@keyframes animate--1 {
+  0% {
+    transform: scale(0);
+    background-color: hsla(0, 0%, 46%, 0.2);
+  }
+
+  20% {
+    transform: scale(0);
+    background-color: hsla(0, 0%, 46%, 1);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: hsla(0, 0%, 46%, 0.0);
+  }
+}
+
+@keyframes animate--2 {
+  0% {
+    transform: scale(0);
+    background-color: hsla(0, 0%, 46%, 0.2);
+  }
+
+  40% {
+    transform: scale(0);
+    background-color: hsla(0, 0%, 46%, 1);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: hsla(0, 0%, 46%, 0.0);
+  }
+}
+
+@keyframes animate--3 {
+  0% {
+    transform: scale(0);
+    background-color: hsla(0, 0%, 46%, 0.2);
+  }
+
+  60% {
+    transform: scale(0);
+    background-color: hsla(0, 0%, 46%, 1);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: hsla(0, 0%, 46%, 0.0);
+  }
+}
