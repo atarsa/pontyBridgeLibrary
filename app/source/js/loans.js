@@ -82,7 +82,7 @@ function getBooks(e){
         setTimeout(function(){
           UI.loadingAnimation.style.display = "none";  
                 
-          showBooksResults(books)
+          showBooksResults(books);
         }, 2000);
       })
     .catch(err => console.log(err));
@@ -105,39 +105,44 @@ function showBooksResults(books){
         for (let loan of loans){
         booksOnLoan.push(loan.BookId);
       }
-      
-      for (const book of books){
-        let id = book.id;
-        let li = document.createElement('li');
-        
-        li.setAttribute("data-bookId", id);
-        li.setAttribute("class", "show-search-results__item--book")
-        li.innerHTML = `<span>${book.title}</span>
-                        <span>${book.isbn}</span>`;
-        
-        const loanElm = document.createElement('a');
-        loanElm.setAttribute("href", "#");
-        
-        // check if book loaned already
-          if (booksOnLoan.includes(book.id) ){
-            console.log(`loaned, ${book.id}`)
-            loanElm.innerHTML = 'loaned';
-            loanElm.classList = "loaned";
-        } else {
-            console.log(`available, ${book.id}`)
-            loanElm.innerHTML = `<i class="fas fa-plus-circle"></i>`
-            loanElm.classList = "loan-book";
-        }
-                
-        li.appendChild(loanElm);
-        
+        const li = document.createElement('li');
+        li.setAttribute("class", " show-search-results__item--book li--results-header");
+        li.innerHTML = `<span> Title </span>
+                        <span> ISBN </span>
+                        <span> Loan </span>`;
         UI.showSearchResults.appendChild(li);
-        UI.showSearchResults.addEventListener("click", loanBook);
-      } 
+
+        for (const book of books){
+          let id = book.id;
+          let li = document.createElement('li');
+          
+          li.setAttribute("data-bookId", id);
+          li.setAttribute("class", "show-search-results__item--book")
+          li.innerHTML = `<span>${book.title}</span>
+                          <span>${book.isbn}</span>`;
+          
+          const loanElm = document.createElement('a');
+          loanElm.setAttribute("href", "#");
+          
+          // check if book loaned already
+            if (booksOnLoan.includes(book.id) ){
+              loanElm.innerHTML = 'loaned';
+              loanElm.classList = "loaned btn";
+          } else {
+              // book available
+              loanElm.innerHTML = `<i class="fas fa-plus-circle"></i>`
+              loanElm.classList = "loan-book btn";
+              loanElm.addEventListener("click", loanBook); 
+
+          }
+              
+          li.appendChild(loanElm);
+          UI.showSearchResults.appendChild(li);
+        } 
     });
   } 
   else {
-    let li = document.createElement('li');
+    const li = document.createElement('li');
     li.setAttribute("class", "li--no-results");
     li.innerText = "Sorry, no results found";
     UI.showSearchResults.appendChild(li);
@@ -176,6 +181,7 @@ function getUserLoanedBooks(){
 function loanBook(e){
   let target = e.target.parentElement.parentElement 
   // get book id
+  console.log(target.attributes)
   let bookID = target.attributes[0].value;
   let dueDate = generateDueDate();
   let dataToSend = {dueDate: dueDate};
@@ -204,8 +210,8 @@ function loanBook(e){
       
       // update loaned books list and counts 
       setTimeout(function(){
-        UI.showUserLoansDiv.style.display = "block";
-        UI.showSearchResults.style.display = "block";
+        UI.showUserLoansDiv.style.display = "grid";
+        UI.showSearchResults.style.display = "grid";
         getUserLoanedBooks();
         
       }, 5500);

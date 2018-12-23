@@ -4,9 +4,14 @@
   display: none;
   width: 90vw;
   animation: fadeIn 1s;
+
 }
 
 .loaned-books {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin-left: -1em;
+
   list-style: none;
   animation: fadeIn 1s;
 
@@ -15,9 +20,21 @@
     display: inline-grid;
     grid-template-columns: 1fr 1fr;
 
+
+
     &--header {
       font-size: 1.2em;
       font-weight: $bold;
     }
   }
+
+  @include md {
+    max-width: 900px;
+  }
+}
+
+.show-user-loans__elm--search {
+  //width: 70%;
+  padding: 1em;
+
 }

@@ -1,13 +1,10 @@
 /* *** search results styles *** */
 
 /* loans page */
-.loaned-books {
-  display: grid;
-  grid-template-columns: 1fr;
-  margin-left: -1em;
-}
+.li--results-header {}
 
-.li--no-results {
+.li--no-results,
+.li--results-header {
   list-style: none;
   font-size: 1.2em;
   font-weight: $bold;
@@ -18,4 +15,9 @@
   color: $icons-col;
   padding: 0 0.4em;
   font-size: 1.2em;
+}
+
+.loaned {
+  color: $dark-blue;
+  font-weight: $bold;
 }

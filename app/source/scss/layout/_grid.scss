@@ -106,6 +106,7 @@ footer {
   &__item--book {
     display: inline-grid;
     grid-template-columns: 3fr 2fr 1fr;
+    align-items: center;
 
   }
 
@@ -212,6 +213,45 @@ footer {
 
   }
 }
+
+/* *** Loans Page grid *** */
+.show-user-loans__elm--search {
+  width: 100%;
+
+
+  // 576px window width and more
+  @include sm {
+    width: 80%;
+  }
+
+  //medium and higer devices
+  @include md {
+    max-width: 900px;
+
+  }
+
+  & input[type="search"] {
+    width: 100%;
+    margin-bottom: 1em;
+
+    @include md {
+      margin-right: 1em;
+      width: 65%;
+    }
+  }
+
+  & .btn {
+    width: 100%;
+
+    @include md {
+      width: 30%;
+    }
+  }
+
+}
+
+//.book-search-form 
+
 
 .loading-animation {
   display: none;

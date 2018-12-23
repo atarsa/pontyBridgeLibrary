@@ -8,7 +8,7 @@
 {% include "partials/navigation.njk" %}
 
 <div class="main-content">
-  <h3>Loans Service</h3>
+  <h2>Loans Service</h2>
   <div class="welcome-user ">
     <h2>Hi, User!</h2>
     <p>What's your barcode number, please?</p>
@@ -19,7 +19,7 @@
   </div>
     
   <div class="show-user-loans">
-    <div>  
+    <div class="show-user-loans__elm--books">  
       
       <h2>Hi, <span class="user-name"> </span>! </h2>
       <p>You have <span class="loaned-books-count"> </span> on loan.</p>
@@ -27,7 +27,7 @@
       </ul>
     </div> 
 
-    <div>
+    <div class="show-user-loans__elm--search">
       <h4>What book would you like to loan?</h4>
       <form class="book-search-form">
         <input type="search" class="js-book-search-input"placeholder="Book Title" required>
@@ -38,7 +38,9 @@
   <!-- Adds animation partial -->
    {% include "partials/animation.njk" %}
     
-   <ul class="show-search-results"> </ul>
+   <ul class="show-search-results">
+    
+    </ul>
    
  
 </div>  
