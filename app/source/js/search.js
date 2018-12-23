@@ -136,7 +136,6 @@ function updateUser(target){
   UI.showSearchResults.removeEventListener("click", editElement);
   
   // Get element ID
-  //console.log(target.attributes[0].value);
   let id = target.attributes[0].value;
   
   // get div with form to update user details
@@ -146,13 +145,16 @@ function updateUser(target){
   const updateUserBtn = document.getElementById('js-update-user');
   
   updateUserForm.style.display = "grid";
- 
-  
-  
-  //updateUserForm.classList.toggle('.form--update-user--show');
+ // get user info
   updateName.value = target.children[0].innerText;
   
-  
+  // add event listener to cancel button
+  document.querySelector('.btn-cancel').addEventListener("click", function(){
+    updateUserForm.style.display = "none";
+    UI.showSearchResults.addEventListener("click", editElement); 
+  });
+
+  // update user details on submit
   updateUserBtn.addEventListener("click", function(e){
     
     let toUpdate = confirm("Are you sure you want to update this record?")
@@ -257,7 +259,8 @@ function deleteItem(itemType,target){
 }
 
 async function showLoanInfo(target){
-  
+  // get book title from target element
+  const bookTitle = target.childNodes[0].innerText;
   const bookId = target.attributes[0].value;
   
   let loanedBooks = await getAllLoanedBooks();
@@ -268,17 +271,22 @@ async function showLoanInfo(target){
   if (loaned){
         
     let user = await getUserName(loaned.UserId);
-    UI.messageDiv.innerHTML = `<p> Book loaned by ${user.name} (${user.barcode}) </p> <p> Due back on: ${loaned.dueDate}</p>`;
+    UI.messageDiv.innerHTML = ` <i class="fas fa-times"></i>
+    <p> <b>${bookTitle}</b> loaned by ${user.name} (${user.barcode}) </p> <p> <b>Due back</b> on: ${new Date(loaned.dueDate).toLocaleDateString()}</p>`; // format Date string
 
     UI.messageDiv.style.display = "block";
-          
+
     
   } else {
-    UI.messageDiv.innerHTML = `<p> Book available </p>`;
+    UI.messageDiv.innerHTML = `<i class="fas fa-times"></i>
+                        <p> <b>${bookTitle}</b>: book available. </p>`;
     UI.messageDiv.style.display = "block";
    
   }
-  
+  // remove message on click
+  document.querySelector('.fa-times').addEventListener("click", function(){
+    UI.messageDiv.style.display = "none";
+  })
 
 }
 

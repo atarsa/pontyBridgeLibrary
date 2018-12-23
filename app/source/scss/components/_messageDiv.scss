@@ -47,6 +47,7 @@ $width-circle: 20px;
 
 .message {
   display: none;
+  position: relative;
   width: 100%;
   padding: 0.8em 0.8em;
   text-align: center;
@@ -60,6 +61,15 @@ $width-circle: 20px;
   }
 
   @include xl {
-    width: 50%;
+    width: 60%;
+    margin: auto;
   }
+}
+
+.message .fa-times {
+  position: absolute;
+  right: 5px;
+  top: 2px;
+  color: $cyan_azure;
+  z-index: 2;
 }
