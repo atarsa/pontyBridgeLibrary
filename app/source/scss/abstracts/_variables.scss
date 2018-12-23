@@ -34,9 +34,21 @@ $linen: rgba(248, 243, 234, 1);
 $white: hsl(272, 100%, 100%);
 $purple: hsl(288, 23%, 38%);
 
-$color-logo: $white;
-$msg-success: hsla(152, 66%, 65%, 1);
+
+$main-bg-col: $dark_blue;
+$nav-bg-col: $cyan_azure;
+
+$btn-bg-dark: $cyan_azure;
+$btn-bg-light: $azureish_white;
+$drop-content-hover: $azureish_white;
+
+$msg-bg: $linen;
 $msg-alert: hsla(346, 66%, 65%, 1);
+$form-bg: $linen;
+
+$icons-col: $dark-blue;
+$color-logo: $white;
+
 
 
 

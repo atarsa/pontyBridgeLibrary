@@ -1,7 +1,8 @@
 /*** Navigation layout ***/
 nav {
   width: 100%;
-  background-color: rgb(133, 114, 150);
+  background-color: $nav-bg-col;
+
 }
 
 .nav-container {
@@ -16,7 +17,7 @@ nav {
     align-self: stretch;
     justify-self: center;
     flex: 0 1 9.5em;
-    background-color: rgb(133, 114, 150);
+    background-color: $nav-bg-col;
     padding: 0.2em;
     margin: 0 0.4em;
 
@@ -27,6 +28,13 @@ nav {
   }
 }
 
+.nav-container__elm a,
+.nav-container__elm .dropbtn {
+  color: $white;
+  text-decoration: none;
+  text-align: center;
+}
+
 .dropdown {
   overflow: hidden;
 }
@@ -34,7 +42,7 @@ nav {
 .dropbtn {
   flex: 1;
   height: 3em;
-  background-color: rgb(133, 114, 150);
+  background-color: $btn-bg-dark;
   border: none;
   outline: none;
   margin: 0;
@@ -47,7 +55,7 @@ nav {
   position: absolute;
   cursor: pointer;
   min-width: 8.5em;
-  background-color: rgb(133, 114, 150);
+  background-color: $btn-bg-dark;
   box-shadow: 4px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 
@@ -69,5 +77,5 @@ nav {
 
 .dropdown-content a:hover,
 .dropdown-content a:focus {
-  background-color: rgba(200, 198, 202, 0.788)
+  background-color: $drop-content-hover;
 }

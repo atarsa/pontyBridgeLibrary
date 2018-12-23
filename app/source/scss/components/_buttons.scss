@@ -12,7 +12,10 @@
   }
 }
 
+.btn {
+  background-color: $btn-bg-light;
+}
+
 .add-form .btn {
-  background-color: rgba(133, 114, 150, 0.575);
   width: 100%;
 }

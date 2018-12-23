@@ -1,3 +1,32 @@
+/*** footer layout ***/
+
+header,
 footer {
-  background-color: $purple;
+  background-color: $main-bg-col;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-basis: 200px;
+  padding: 0.5em;
+  color: $white;
+  height: 100%;
+
+}
+
+.logo--footer {
+  font-size: 1.2em;
+}
+
+.footer-icons {
+  align-self: center;
+
+  &__elm {
+    text-decoration: none;
+    color: $white;
+    font-size: 1.4em;
+    padding: 0.4em;
+  }
+
 }

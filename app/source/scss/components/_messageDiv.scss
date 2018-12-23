@@ -53,12 +53,7 @@ $width-circle: 20px;
   border: solid 1px rgb(236, 231, 231);
   border-radius: 4px;
   box-shadow: 3px 3px rgba(241, 239, 239, 0.925);
-  background-color: rgb(236, 228, 236);
-
-
-  &--success {
-    background-color: $msg-success;
-  }
+  background-color: $msg-bg;
 
   &--alert {
     background-color: $msg-alert;
