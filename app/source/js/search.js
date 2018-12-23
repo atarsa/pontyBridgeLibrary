@@ -177,14 +177,14 @@ function updateUser(target){
             showMessage("User modified successfully", true);
           }, 1500);
 
-          // show list of updated books records if on books.html or users.html
+          // show list of updated users records if on users.html
           setTimeout(function(){
             if (currentLocation == "/users.html"){
               showUsers();
             }
 
             }, 6000);
-          // add event listner back in case of more searches
+          // add event listener back in case of more searches
           UI.showSearchResults.addEventListener("click", editElement); 
          
         })
