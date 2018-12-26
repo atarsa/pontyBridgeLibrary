@@ -12,18 +12,9 @@
   }
 }
 
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
-  }
-}
 
 
-/* *** loading circles  aimation *** */
+/* *** loading circles animation *** */
 @keyframes animate--1 {
   0% {
     transform: scale(0);

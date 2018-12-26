@@ -1,0 +1,36 @@
+/* **** laoding circles **** */
+
+$width: 100px;
+$width-circle: 20px;
+
+.loading-animation {
+  width: $width;
+  height: $width / 2;
+  margin: auto;
+  position: relative;
+}
+
+.circle {
+  width: $width-circle;
+  height: $width-circle;
+  position: absolute;
+  border-radius: 50%;
+
+  &--1 {
+    top: 30%;
+    left: $width-circle/2;
+    animation: animate--1 2s ease infinite;
+  }
+
+  &--2 {
+    top: 30%;
+    left: 2 * $width-circle;
+    animation: animate--2 2s ease infinite;
+  }
+
+  &--3 {
+    top: 30%;
+    left: 3 * $width-circle + $width-circle/2;
+    animation: animate--3 2s ease infinite;
+  }
+}

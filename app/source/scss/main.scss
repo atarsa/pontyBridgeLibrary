@@ -1,19 +1,15 @@
-// example, needs to be edited
 @import 'abstracts/variables',
 'abstracts/mixins';
 
 @import "vendors/normalize/import-now";
 //@import "vendors/normalize";
 
-@import 'base/base',
-'base/reset',
+@import 'base/reset',
 'base/typography';
 
 @import 'layout/navigation',
 'layout/grid',
-'layout/header',
 'layout/footer',
-'layout/sidebar',
 'layout/search-results',
 'layout/modify-user';
 
@@ -21,10 +17,9 @@
 @import 'components/logo',
 'components/form',
 'components/buttons',
-'components/animations',
-'components/messageDiv';
+'components/messageDiv',
+'components/loading_circles',
+'components/animations';
 
 @import 'pages/home',
-'pages/books',
-'pages/search',
 'pages/loans';

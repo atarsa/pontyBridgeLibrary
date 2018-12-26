@@ -11,7 +11,7 @@ function showUsers(){
         // add data atribute to identify item in db
         li.setAttribute("data-userId", user.id); 
         
-        li.setAttribute("class", "show-search-results__item show-search-results__item--user")
+        li.setAttribute("class", "show-search-results__item show-search-results__item--4col")
                       
         li.innerHTML = `<span>${user.name}</span>
                         <span>${user.barcode}</span>
@@ -47,7 +47,7 @@ function showBooks(){
       for (let book of books){
         let li = document.createElement('li');
         li.setAttribute("data-bookId", book.id);
-        li.setAttribute("class", "show-search-results__item--user show-search-results__item")
+        li.setAttribute("class", "show-search-results__item--4col show-search-results__item")
          
         
         li.innerHTML = `<span>${book.title}</span>

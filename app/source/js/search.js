@@ -53,7 +53,7 @@ function showResults(results) {
       if ('name' in result){
         // add data atribute to identify item in db
         li.setAttribute("data-userId", id);
-        li.setAttribute("class", "show-search-results__item--user")
+        li.setAttribute("class", "show-search-results__item--4col")
         li.innerHTML = `<span>${result.name}</span>
                         <span>${result.barcode}</span>
                         <span> ${result.memberType}</span>`;
@@ -75,7 +75,7 @@ function showResults(results) {
       } else { 
         // show results for books
         li.setAttribute("data-bookId", id);
-        li.setAttribute("class", "show-search-results__item--book")
+        li.setAttribute("class", "show-search-results__item--3col")
         li.innerHTML = `<span>${result.title}</span>
                         <span>${result.isbn}</span>`;
         

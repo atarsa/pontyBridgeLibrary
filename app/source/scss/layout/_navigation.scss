@@ -2,7 +2,6 @@
 nav {
   width: 100%;
   background-color: $nav-bg-col;
-
 }
 
 .nav-container {
@@ -11,7 +10,6 @@ nav {
   display: flex;
   justify-content: flex-end;
   overflow: hidden;
-
 
   &__elm {
     align-self: stretch;

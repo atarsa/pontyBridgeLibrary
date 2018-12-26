@@ -1,5 +1,4 @@
-/*** Forms styles ***/
-
+/* *** Forms input styles *** */
 
 input[type="search"] {
   padding: 0.5em 0.8em;
@@ -7,7 +6,6 @@ input[type="search"] {
   display: inline-block;
   border: 1px solid #ccc;
   border-radius: 4px;
-
 }
 
 input[type="text"],
@@ -16,5 +14,5 @@ input[type="text"],
   padding: 0.4em 0.8em;
   display: inline-block;
   border: 1px solid #ccc;
-  border-radius: 2px;
+  border-radius: 4px;
 }

@@ -106,7 +106,7 @@ function showBooksResults(books){
         booksOnLoan.push(loan.BookId);
       }
         const li = document.createElement('li');
-        li.setAttribute("class", " show-search-results__item--book li--results-header");
+        li.setAttribute("class", " show-search-results__item--3col li--results-header");
         li.innerHTML = `<span> Title </span>
                         <span> ISBN </span>
                         <span> Loan </span>`;
@@ -117,7 +117,7 @@ function showBooksResults(books){
           let li = document.createElement('li');
           
           li.setAttribute("data-bookId", id);
-          li.setAttribute("class", "show-search-results__item--book")
+          li.setAttribute("class", "show-search-results__item--3col")
           li.innerHTML = `<span>${book.title}</span>
                           <span>${book.isbn}</span>`;
           

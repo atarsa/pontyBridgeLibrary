@@ -1,50 +1,4 @@
-$bluish: hsla(223, 67%, 65%, 1);
-$redish: hsla(360, 98%, 65%, 1);
-$greyish: hsla(0, 0%, 46%, 1);
-
-$width: 100px;
-$width-circle: 20px;
-
-.loading-animation {
-  width: $width;
-  height: $width / 2;
-  margin: auto;
-  position: relative;
-
-}
-
-.circle {
-  width: $width-circle;
-  height: $width-circle;
-  position: absolute;
-  border-radius: 50%;
-
-  &--1 {
-    background-color: $greyish;
-    top: 30%;
-    left: $width-circle/2;
-    animation: animate--1 2s ease infinite;
-
-  }
-
-  &--2 {
-    background-color: $greyish;
-    top: 30%;
-    left: 2 * $width-circle;
-    animation: animate--2 2s ease infinite;
-
-  }
-
-  &--3 {
-    background-color: $greyish;
-    top: 30%;
-    left: 3 * $width-circle + $width-circle/2;
-    animation: animate--3 2s ease infinite;
-
-  }
-}
-
-
+/* *** message div *** */
 .message {
   display: none;
   position: relative;
@@ -52,9 +6,8 @@ $width-circle: 20px;
   width: 100%;
   padding: 0.8em 0.8em;
   text-align: center;
-  border: solid 1px rgb(236, 231, 231);
   border-radius: 4px;
-  box-shadow: 3px 3px rgba(241, 239, 239, 0.925);
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.24);
   background-color: $msg-bg;
 
   &--alert {
@@ -63,7 +16,7 @@ $width-circle: 20px;
 
   @include xl {
     width: 60%;
-    margin: auto;
+    margin: 1.5em auto;
   }
 }
 

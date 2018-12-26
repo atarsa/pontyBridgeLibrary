@@ -1,6 +1,20 @@
-/*** mixins ***/
-
 // media Quries 
+
+// breakpoints credits [2] to 
+// Lukasz Florczak https://medium.com/codeartisan/breakpoints-and-media-queries-in-scss-46e8f551e2f2 accessed 20/12/18
+
+
+// Small tablets and large smartphones (landscape view)
+$screen-sm-min: 576px;
+
+// Small tablets (portrait view)
+$screen-md-min: 768px;
+
+// Tablets and small desktops
+$screen-lg-min: 992px;
+
+// Large tablets and desktops
+$screen-xl-min: 1200px;
 
 // Small devices
 @mixin sm {

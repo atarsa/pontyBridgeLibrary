@@ -293,7 +293,7 @@ function showUsers(){
         // add data atribute to identify item in db
         li.setAttribute("data-userId", user.id); 
         
-        li.setAttribute("class", "show-search-results__item show-search-results__item--user")
+        li.setAttribute("class", "show-search-results__item show-search-results__item--4col")
                       
         li.innerHTML = `<span>${user.name}</span>
                         <span>${user.barcode}</span>
@@ -329,7 +329,7 @@ function showBooks(){
       for (let book of books){
         let li = document.createElement('li');
         li.setAttribute("data-bookId", book.id);
-        li.setAttribute("class", "show-search-results__item--user show-search-results__item")
+        li.setAttribute("class", "show-search-results__item--4col show-search-results__item")
          
         
         li.innerHTML = `<span>${book.title}</span>
@@ -497,7 +497,7 @@ function showBooksResults(books){
         booksOnLoan.push(loan.BookId);
       }
         const li = document.createElement('li');
-        li.setAttribute("class", " show-search-results__item--book li--results-header");
+        li.setAttribute("class", " show-search-results__item--3col li--results-header");
         li.innerHTML = `<span> Title </span>
                         <span> ISBN </span>
                         <span> Loan </span>`;
@@ -508,7 +508,7 @@ function showBooksResults(books){
           let li = document.createElement('li');
           
           li.setAttribute("data-bookId", id);
-          li.setAttribute("class", "show-search-results__item--book")
+          li.setAttribute("class", "show-search-results__item--3col")
           li.innerHTML = `<span>${book.title}</span>
                           <span>${book.isbn}</span>`;
           
@@ -677,7 +677,7 @@ function showResults(results) {
       if ('name' in result){
         // add data atribute to identify item in db
         li.setAttribute("data-userId", id);
-        li.setAttribute("class", "show-search-results__item--user")
+        li.setAttribute("class", "show-search-results__item--4col")
         li.innerHTML = `<span>${result.name}</span>
                         <span>${result.barcode}</span>
                         <span> ${result.memberType}</span>`;
@@ -699,7 +699,7 @@ function showResults(results) {
       } else { 
         // show results for books
         li.setAttribute("data-bookId", id);
-        li.setAttribute("class", "show-search-results__item--book")
+        li.setAttribute("class", "show-search-results__item--3col")
         li.innerHTML = `<span>${result.title}</span>
                         <span>${result.isbn}</span>`;
         
