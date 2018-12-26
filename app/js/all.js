@@ -111,37 +111,53 @@ if (currentLocation == "/loans.html"){
 
 // GET request
 async function getData(query){
-  const response = await fetch(base_url+query);
-  const data = response.json()
-
-  return data
+  try{
+    const response = await fetch(base_url+query);
+    const data = response.json()
+    return data
+  }
+  catch(e){
+    console.log('Error!', e);
+  }
 }
+
 // POST request
 async function sendData(url, inputData){
-  const response = await fetch(url, {
-    method: "POST",
-    body: JSON.stringify(inputData),
-    headers:{
-      'Content-Type': 'application/json'
-      }
-    });
+  try{
+    const response = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(inputData),
+      headers:{
+        'Content-Type': 'application/json'
+        }
+      });
+    
+    const data = await response.json()
+    return data
+  }
+  catch(e){
+    console.log('Error!', e);
+  }
   
-  const data = await response.json()
-  return data
 }
 
 // PUT request
 async function updateData(url, inputData){
-  const response = await fetch(url, {
-    method: "PUT",
-    body: JSON.stringify(inputData),
-    headers:{
-      'Content-Type': 'application/json'
-      }
-    });
-  
-  const data = await response.json()
-  return data
+  try{
+    const response = await fetch(url, {
+      method: "PUT",
+      body: JSON.stringify(inputData),
+      headers:{
+        'Content-Type': 'application/json'
+        }
+      });
+    
+    const data = await response.json()
+    return data
+  }
+  catch(e){
+    console.log('Error!', e);
+  }
 }
 
 // ======= message and animation ============
@@ -183,19 +199,16 @@ function addBook(e){
               isbn: inputISBN.value};
 
   let authorData = {name: inputAuthor.value}
-  console.log(queryUrl);
-  
-  let status;
-   
+    
   //show loading animation
   UI.loadingAnimation.style.display = "block";
 
   sendData(queryUrl, bookData)
     .then(data => {
-      //console.log(data)
+      
       const bookID = data.id;
       const authorPostUrl = `${queryUrl}/${bookID}${authors_url}`
-      //console.log(authorPostUrl)
+      
       sendData(authorPostUrl, authorData)
         .then(() => {
             status = true;
@@ -206,7 +219,7 @@ function addBook(e){
               UI.addBookForm.reset();
            
               UI.loadingAnimation.style.display = "none";
-              showMessage("Book added successfully", status);
+              showMessage("Book added successfully");
               UI.addBookBtn.disabled = false;
           }, 3000);
       
@@ -214,14 +227,10 @@ function addBook(e){
     })
     .catch(err => {
         // send message that unsuccessfull
-        status = false;
-        showMessage("Oopss, something went wrong. Please try again.", status);
-      
+        showMessage("Oops, something went wrong. Please try again.", false);
     })
-  
   e.preventDefault();
 }
-
 
 // ==== addUser.js ====
 
@@ -234,8 +243,7 @@ function addUser(e){
     barcode: UI.userBarcodeInput.value,
     memberType: UI.userMemberTypeInput.value
   }
-  let status;
-
+ 
   // disable submit button to prevent double submission
   UI.addUserBtn.setAttribute('disabled', 'disabled');
   //show loading animation
@@ -243,17 +251,12 @@ function addUser(e){
 
   sendData(queryUrl, userData)
     .then( () => {
-      
-      status = true;
-      
       //remove animation and clear input after 3sec, show message afterwards
       setTimeout(function(){
-       
         // reset form
         UI.addForm.reset();
-       
         UI.loadingAnimation.style.display = "none";
-        showMessage("User added successfully!", status);
+        showMessage("User added successfully!");
 
         // "undisable add button"
         UI.addUserBtn.disabled = false;
@@ -262,20 +265,16 @@ function addUser(e){
     })
     .catch((err => {
       console.log(err);
-      status = false;
-      
+            
       //remove message after 3sec
       setTimeout(function(){
         // reset form
         UI.addForm.reset();
-
         UI.loadingAnimation.style.display = "none";
-        showMessage("Oops, something went wrong!!", status);
+        showMessage("Oops, something went wrong!!", false);
      }, 3000);
-      
     }
     ));
-        
   e.preventDefault();
 }
 
@@ -293,17 +292,19 @@ function showUsers(){
         // add data atribute to identify item in db
         li.setAttribute("data-userId", user.id); 
         
-        li.setAttribute("class", "show-search-results__item show-search-results__item--4col")
+        li.setAttribute("class", "show-search-results__item show-search-results__item--4col");
                       
         li.innerHTML = `<span>${user.name}</span>
                         <span>${user.barcode}</span>
-                        <span> ${user.memberType}</span>`
-                        
+                        <span> ${user.memberType}</span>`;
+        
+        // update icon                 
         const updateElm = document.createElement('a');
         updateElm.setAttribute("href", "#");
         updateElm.innerHTML = '<i class="fas fa-pen-square"></i>';
         updateElm.classList = "update-user";
-                        
+        
+        // delete icon
         const deleteElm = document.createElement('a');
         deleteElm.setAttribute("href", "#");
         deleteElm.innerHTML = '<i class="fas fa-trash-alt"></i>';
@@ -313,35 +314,36 @@ function showUsers(){
         buttonsDiv.appendChild(updateElm)
         buttonsDiv.appendChild(deleteElm);
         li.appendChild(buttonsDiv);
-        
-        
+                
         UI.showSearchResults.appendChild(li);
       }
   })
+  .catch(err => {
+    console.log(err);
+    showMessage("Ooops, something went wrong. Sorry!", false);
+})
 }
 
 // Show all books on books.html
 function showBooks(){
- let url = books_url + '?allEntities=true'
+ let url = books_url + '?allEntities=true';
   getData(url)
     .then(books => {
               
       for (let book of books){
         let li = document.createElement('li');
         li.setAttribute("data-bookId", book.id);
-        li.setAttribute("class", "show-search-results__item--4col show-search-results__item")
+        li.setAttribute("class", "show-search-results__item--4col show-search-results__item");
          
-        
         li.innerHTML = `<span>${book.title}</span>
-                        <span>${book.Authors[0] ? book.Authors[0].name : "no author"}</span>
+                        <span>${book.Authors[0] ? book.Authors[0].name : "Unknown"}</span>
                         <span>${book.isbn}</span>`;
 
         const deleteElm = document.createElement('a');
         deleteElm.setAttribute("href", "#");
         deleteElm.innerHTML = '<i class="fas fa-trash-alt"></i>';
         deleteElm.classList = "delete-book";
-                        
-                
+                   
         // info icon, to show loan status of book on click
         const infoElm = document.createElement('a');
         infoElm.setAttribute("href", "#");
@@ -356,9 +358,10 @@ function showBooks(){
         UI.showSearchResults.appendChild(li);
       }
   })
-  .catch(err => {console.log(err)}
-
-  )
+  .catch(err => {
+      console.log(err);
+      showMessage("Ooops, something went wrong. Sorry!", false);
+  })
 }
 
 // filter through results on books.html / users.html
@@ -367,7 +370,7 @@ function filterResults(e){
  
   document.querySelectorAll(".show-search-results__item").forEach(li => {
     const item = li.textContent;
-    if ( item.toLowerCase().indexOf(text) != -1){
+    if ( item.toLowerCase().indexOf(text) !== -1){
       li.style.display = "inline-grid";
     } else {
       li.style.display = "none";
@@ -393,13 +396,12 @@ function getHomePageData(){
 
 let userID;
 
-// get user id
+// get user 
 function barcodeSearch(e){
   
   let barcode = UI.barcodeSearchInput.value
   let query_url = search_url + `?type=user&barcode=${barcode}`;
-  console.log(query_url);
-
+  
   getData(query_url)
     .then(response => {
       // if no barcode found
@@ -407,7 +409,6 @@ function barcodeSearch(e){
         UI.welcomeUserH2.innerText = `Sorry, no record found.`;
         UI.barcodeSearchInput.value = "";
       } else {
-        
         // hide barcode search
         UI.welcomeUserDiv.style.display = "none";
         
@@ -422,7 +423,6 @@ function barcodeSearch(e){
               
       }
       })
-  
   e.preventDefault();
 }
 
@@ -442,9 +442,7 @@ function showUserLoanedBooks(loans){
     let getBookUrl = `${books_url}/${loan.BookId}`;
     getData(getBookUrl)
       .then(book => {
-        // console.log(book.title);
-        // console.log(loan)
-
+        
         const li = document.createElement('li');
         li.setAttribute("class", "loaned-books__item")
         li.innerHTML = `<span>${book.title}</span>
@@ -457,15 +455,16 @@ function showUserLoanedBooks(loans){
   // add event listener to Book Form
   UI.bookSearchForm.addEventListener("submit", getBooks);
 }
+
 // search for a book
 function getBooks(e){
-
   // clean displayed results if any
   UI.showSearchResults.innerHTML = "";
   // show loading animation
   UI.loadingAnimation.style.display = "block";
 
   let query_url = search_url + `?type=book&title=${UI.bookInput.value}`;
+  
   getData(query_url)
     .then(books => 
       { 
@@ -546,12 +545,12 @@ function getUserLoanedBooks(){
 
   getData(query_url)  
     .then(loans => {
-      //console.log(loans);
+      
       // get loanded books count
       let bookCount = loans.length;
       if (bookCount === 0){
         UI.loandedBooksCountSpan.innerText = "no book";
-        // add evennt listener to Book Form
+        // add event listener to Book Form
         UI.bookSearchForm.addEventListener("submit", getBooks);
       } else {
           if (bookCount === 1){
@@ -559,20 +558,16 @@ function getUserLoanedBooks(){
           } else {
             UI.loandedBooksCountSpan.innerText = `${bookCount} books`;
           }
-
           showUserLoanedBooks(loans);
-        
         }
       }
     )
-
 }
 
 
 function loanBook(e){
-  let target = e.target.parentElement.parentElement 
+  let target = e.target.parentElement.parentElement; 
   // get book id
-  console.log(target.attributes)
   let bookID = target.attributes[0].value;
   let dueDate = generateDueDate();
   let dataToSend = {dueDate: dueDate};
@@ -589,8 +584,7 @@ function loanBook(e){
       UI.loadingAnimation.style.display = "block";
    sendData(query_url, dataToSend)
     .then(response => {
-             
-  
+         
       // msg if loaned successfully
       setTimeout(function(){
         UI.loadingAnimation.style.display = "none";
@@ -640,10 +634,9 @@ function search(e){
     }
   } else if (searchType == 'book'){
     queryUrl += `?type=${searchType}&title=${searchInput}`;
-  }
-  
-  console.log(queryUrl);
+  } 
   UI.loadingAnimation.style.display = "block";
+  
   // fetch results
   fetch(queryUrl)
     .then(resp => resp.json())
@@ -656,8 +649,7 @@ function search(e){
         
     }, 2000);
            
-    }
-      )
+    })
     .catch(err => console.log(err));
 
   e.preventDefault();
@@ -666,21 +658,25 @@ function search(e){
 function showResults(results) {
   
   UI.showSearchResults.innerHTML = "";
-  //document.getElementById('search').value = "";
+  // reset form
   UI.searchForm.reset();
+
   if (results.length !== 0){
+       
     for (let result of results){
       let id = result.id;
-      console.log(result);
+      
       let li = document.createElement('li');
       // show results for user
       if ('name' in result){
+
         // add data atribute to identify item in db
         li.setAttribute("data-userId", id);
         li.setAttribute("class", "show-search-results__item--4col")
         li.innerHTML = `<span>${result.name}</span>
                         <span>${result.barcode}</span>
                         <span> ${result.memberType}</span>`;
+        // create update and delete buttons
         const updateElm = document.createElement('a');
         updateElm.setAttribute("href", "#");
         updateElm.innerHTML = '<i class="fas fa-pen-square"></i>';
@@ -703,12 +699,12 @@ function showResults(results) {
         li.innerHTML = `<span>${result.title}</span>
                         <span>${result.isbn}</span>`;
         
+        // create info and delete buttons
         const deleteElm = document.createElement('a');
         deleteElm.setAttribute("href", "#");
         deleteElm.innerHTML = '<i class="fas fa-trash-alt"></i>';
         deleteElm.classList = "delete-book";
         
-
         // info icon, to show loan status of book on click
         const infoElm = document.createElement('a');
         infoElm.setAttribute("href", "#");
@@ -737,20 +733,17 @@ function showResults(results) {
 
 function editElement(e){
   if(e.target.parentElement.matches('.update-user')){
-    console.log(e.target.parentElement.parentElement.parentElement)
     updateUser(e.target.parentElement.parentElement.parentElement);
     
   } 
   else if(e.target.parentElement.matches('.delete-user')){
-     deleteItem('user',e.target.parentElement.parentElement.parentElement);
+    deleteItem('user',e.target.parentElement.parentElement.parentElement);
     
   } 
   else if(e.target.parentElement.matches('.delete-book')){
-
     deleteItem('book',e.target.parentElement.parentElement.parentElement);
   } 
   else if(e.target.parentElement.matches('.loan-info')){
-
     showLoanInfo(e.target.parentElement.parentElement.parentElement);
   }
 } 
@@ -786,14 +779,11 @@ function updateUser(target){
     if (toUpdate){
       let queryUrl = `${base_url}${users_url}/${id}`;
       let updatedData = {name: updateName.value,
-                        memberType: updateMemberType.value}
+                        memberType: updateMemberType.value};
   
-      console.log("updating...");
-      console.log(queryUrl);
       // PUT request to update data on the server
       updateData(queryUrl, updatedData)
         .then(response => {
-          console.log('Success:', JSON.stringify(response));
           updateUserForm.style.display = "none";
           UI.showSearchResults.innerHTML = "";
           UI.loadingAnimation.style.display = "block";
@@ -825,7 +815,6 @@ function updateUser(target){
        UI.showSearchResults.addEventListener("click", editElement);    
   
     }
-    
     e.preventDefault();
   });
  
@@ -833,13 +822,13 @@ function updateUser(target){
 
 
 function deleteItem(itemType,target){
-  console.log(target.attributes[0].value);
+ 
   const toDelete = confirm("Are you sure you want to delete this record?");
   if (toDelete){
     UI.showSearchResults.innerHTML = "";
     // show loading animation
     UI.loadingAnimation.style.display = "block";
-      // Get element ID
+    // Get element ID
     let id = target.attributes[0].value;
 
     // Get query Url depending on type of item
@@ -850,37 +839,30 @@ function deleteItem(itemType,target){
       queryUrl = `${base_url}${books_url}/${id}`;
     }
     
-  console.log("deleting...");
-    
-  // DELETE request to update data on the server
+      
+    // DELETE request to update data on the server
     fetch(queryUrl, {method: "DELETE"})
       .catch(error => console.error('Error:', error));
     //remove animation and clear input after 3sec, show message afterwards
     setTimeout(function(){
             
       // clear input
-      
       UI.loadingAnimation.style.display = "none";
       // TODO: false to have red background color, refactor
       showMessage("Record deleted successfully");
-         
-      
   }, 3000);
     
   // show list of updated books records if on books.html or users.html
-  setTimeout(function(){
-    if (currentLocation == "/books.html"){
-      showBooks();
-    }
-    if (currentLocation == "/users.html"){
-      showUsers();
+    setTimeout(function(){
+      if (currentLocation == "/books.html"){
+        showBooks();
       }
+      if (currentLocation == "/users.html"){
+        showUsers();
+        }
 
-  }, 6000);
-  
-
+      }, 6000);
   }
-  
 }
 
 async function showLoanInfo(target){
@@ -916,10 +898,20 @@ async function showLoanInfo(target){
 }
 
 async function getUserName(id){
+  try{
     let queryUrl = users_url + `/${id}`; 
-    return await getData(queryUrl)   
+    return await getData(queryUrl)  
+  }
+   catch(e){
+     console.log("Error!", e);
+   }  
 }
 
 async function getAllLoanedBooks(){
-    return await getData("/loans")   
+  try{
+    return await getData("/loans")  
+  }
+  catch(e){
+    console.log("Error!", e);
+  }  
 }

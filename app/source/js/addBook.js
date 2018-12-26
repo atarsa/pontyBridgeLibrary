@@ -16,19 +16,16 @@ function addBook(e){
               isbn: inputISBN.value};
 
   let authorData = {name: inputAuthor.value}
-  console.log(queryUrl);
-  
-  let status;
-   
+    
   //show loading animation
   UI.loadingAnimation.style.display = "block";
 
   sendData(queryUrl, bookData)
     .then(data => {
-      //console.log(data)
+      
       const bookID = data.id;
       const authorPostUrl = `${queryUrl}/${bookID}${authors_url}`
-      //console.log(authorPostUrl)
+      
       sendData(authorPostUrl, authorData)
         .then(() => {
             status = true;
@@ -39,7 +36,7 @@ function addBook(e){
               UI.addBookForm.reset();
            
               UI.loadingAnimation.style.display = "none";
-              showMessage("Book added successfully", status);
+              showMessage("Book added successfully");
               UI.addBookBtn.disabled = false;
           }, 3000);
       
@@ -47,11 +44,7 @@ function addBook(e){
     })
     .catch(err => {
         // send message that unsuccessfull
-        status = false;
-        showMessage("Oopss, something went wrong. Please try again.", status);
-      
+        showMessage("Oops, something went wrong. Please try again.", false);
     })
-  
   e.preventDefault();
 }
-

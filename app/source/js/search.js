@@ -16,10 +16,9 @@ function search(e){
     }
   } else if (searchType == 'book'){
     queryUrl += `?type=${searchType}&title=${searchInput}`;
-  }
-  
-  console.log(queryUrl);
+  } 
   UI.loadingAnimation.style.display = "block";
+  
   // fetch results
   fetch(queryUrl)
     .then(resp => resp.json())
@@ -32,8 +31,7 @@ function search(e){
         
     }, 2000);
            
-    }
-      )
+    })
     .catch(err => console.log(err));
 
   e.preventDefault();
@@ -42,21 +40,25 @@ function search(e){
 function showResults(results) {
   
   UI.showSearchResults.innerHTML = "";
-  //document.getElementById('search').value = "";
+  // reset form
   UI.searchForm.reset();
+
   if (results.length !== 0){
+       
     for (let result of results){
       let id = result.id;
-      console.log(result);
+      
       let li = document.createElement('li');
       // show results for user
       if ('name' in result){
+
         // add data atribute to identify item in db
         li.setAttribute("data-userId", id);
         li.setAttribute("class", "show-search-results__item--4col")
         li.innerHTML = `<span>${result.name}</span>
                         <span>${result.barcode}</span>
                         <span> ${result.memberType}</span>`;
+        // create update and delete buttons
         const updateElm = document.createElement('a');
         updateElm.setAttribute("href", "#");
         updateElm.innerHTML = '<i class="fas fa-pen-square"></i>';
@@ -79,12 +81,12 @@ function showResults(results) {
         li.innerHTML = `<span>${result.title}</span>
                         <span>${result.isbn}</span>`;
         
+        // create info and delete buttons
         const deleteElm = document.createElement('a');
         deleteElm.setAttribute("href", "#");
         deleteElm.innerHTML = '<i class="fas fa-trash-alt"></i>';
         deleteElm.classList = "delete-book";
         
-
         // info icon, to show loan status of book on click
         const infoElm = document.createElement('a');
         infoElm.setAttribute("href", "#");
@@ -113,20 +115,17 @@ function showResults(results) {
 
 function editElement(e){
   if(e.target.parentElement.matches('.update-user')){
-    console.log(e.target.parentElement.parentElement.parentElement)
     updateUser(e.target.parentElement.parentElement.parentElement);
     
   } 
   else if(e.target.parentElement.matches('.delete-user')){
-     deleteItem('user',e.target.parentElement.parentElement.parentElement);
+    deleteItem('user',e.target.parentElement.parentElement.parentElement);
     
   } 
   else if(e.target.parentElement.matches('.delete-book')){
-
     deleteItem('book',e.target.parentElement.parentElement.parentElement);
   } 
   else if(e.target.parentElement.matches('.loan-info')){
-
     showLoanInfo(e.target.parentElement.parentElement.parentElement);
   }
 } 
@@ -162,14 +161,11 @@ function updateUser(target){
     if (toUpdate){
       let queryUrl = `${base_url}${users_url}/${id}`;
       let updatedData = {name: updateName.value,
-                        memberType: updateMemberType.value}
+                        memberType: updateMemberType.value};
   
-      console.log("updating...");
-      console.log(queryUrl);
       // PUT request to update data on the server
       updateData(queryUrl, updatedData)
         .then(response => {
-          console.log('Success:', JSON.stringify(response));
           updateUserForm.style.display = "none";
           UI.showSearchResults.innerHTML = "";
           UI.loadingAnimation.style.display = "block";
@@ -201,7 +197,6 @@ function updateUser(target){
        UI.showSearchResults.addEventListener("click", editElement);    
   
     }
-    
     e.preventDefault();
   });
  
@@ -209,13 +204,13 @@ function updateUser(target){
 
 
 function deleteItem(itemType,target){
-  console.log(target.attributes[0].value);
+ 
   const toDelete = confirm("Are you sure you want to delete this record?");
   if (toDelete){
     UI.showSearchResults.innerHTML = "";
     // show loading animation
     UI.loadingAnimation.style.display = "block";
-      // Get element ID
+    // Get element ID
     let id = target.attributes[0].value;
 
     // Get query Url depending on type of item
@@ -226,37 +221,30 @@ function deleteItem(itemType,target){
       queryUrl = `${base_url}${books_url}/${id}`;
     }
     
-  console.log("deleting...");
-    
-  // DELETE request to update data on the server
+      
+    // DELETE request to update data on the server
     fetch(queryUrl, {method: "DELETE"})
       .catch(error => console.error('Error:', error));
     //remove animation and clear input after 3sec, show message afterwards
     setTimeout(function(){
             
       // clear input
-      
       UI.loadingAnimation.style.display = "none";
       // TODO: false to have red background color, refactor
       showMessage("Record deleted successfully");
-         
-      
   }, 3000);
     
   // show list of updated books records if on books.html or users.html
-  setTimeout(function(){
-    if (currentLocation == "/books.html"){
-      showBooks();
-    }
-    if (currentLocation == "/users.html"){
-      showUsers();
+    setTimeout(function(){
+      if (currentLocation == "/books.html"){
+        showBooks();
       }
+      if (currentLocation == "/users.html"){
+        showUsers();
+        }
 
-  }, 6000);
-  
-
+      }, 6000);
   }
-  
 }
 
 async function showLoanInfo(target){
@@ -292,10 +280,20 @@ async function showLoanInfo(target){
 }
 
 async function getUserName(id){
+  try{
     let queryUrl = users_url + `/${id}`; 
-    return await getData(queryUrl)   
+    return await getData(queryUrl)  
+  }
+   catch(e){
+     console.log("Error!", e);
+   }  
 }
 
 async function getAllLoanedBooks(){
-    return await getData("/loans")   
+  try{
+    return await getData("/loans")  
+  }
+  catch(e){
+    console.log("Error!", e);
+  }  
 }

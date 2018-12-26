@@ -2,13 +2,12 @@
 
 let userID;
 
-// get user id
+// get user 
 function barcodeSearch(e){
   
   let barcode = UI.barcodeSearchInput.value
   let query_url = search_url + `?type=user&barcode=${barcode}`;
-  console.log(query_url);
-
+  
   getData(query_url)
     .then(response => {
       // if no barcode found
@@ -16,7 +15,6 @@ function barcodeSearch(e){
         UI.welcomeUserH2.innerText = `Sorry, no record found.`;
         UI.barcodeSearchInput.value = "";
       } else {
-        
         // hide barcode search
         UI.welcomeUserDiv.style.display = "none";
         
@@ -31,7 +29,6 @@ function barcodeSearch(e){
               
       }
       })
-  
   e.preventDefault();
 }
 
@@ -51,9 +48,7 @@ function showUserLoanedBooks(loans){
     let getBookUrl = `${books_url}/${loan.BookId}`;
     getData(getBookUrl)
       .then(book => {
-        // console.log(book.title);
-        // console.log(loan)
-
+        
         const li = document.createElement('li');
         li.setAttribute("class", "loaned-books__item")
         li.innerHTML = `<span>${book.title}</span>
@@ -66,15 +61,16 @@ function showUserLoanedBooks(loans){
   // add event listener to Book Form
   UI.bookSearchForm.addEventListener("submit", getBooks);
 }
+
 // search for a book
 function getBooks(e){
-
   // clean displayed results if any
   UI.showSearchResults.innerHTML = "";
   // show loading animation
   UI.loadingAnimation.style.display = "block";
 
   let query_url = search_url + `?type=book&title=${UI.bookInput.value}`;
+  
   getData(query_url)
     .then(books => 
       { 
@@ -155,12 +151,12 @@ function getUserLoanedBooks(){
 
   getData(query_url)  
     .then(loans => {
-      //console.log(loans);
+      
       // get loanded books count
       let bookCount = loans.length;
       if (bookCount === 0){
         UI.loandedBooksCountSpan.innerText = "no book";
-        // add evennt listener to Book Form
+        // add event listener to Book Form
         UI.bookSearchForm.addEventListener("submit", getBooks);
       } else {
           if (bookCount === 1){
@@ -168,20 +164,16 @@ function getUserLoanedBooks(){
           } else {
             UI.loandedBooksCountSpan.innerText = `${bookCount} books`;
           }
-
           showUserLoanedBooks(loans);
-        
         }
       }
     )
-
 }
 
 
 function loanBook(e){
-  let target = e.target.parentElement.parentElement 
+  let target = e.target.parentElement.parentElement; 
   // get book id
-  console.log(target.attributes)
   let bookID = target.attributes[0].value;
   let dueDate = generateDueDate();
   let dataToSend = {dueDate: dueDate};
@@ -198,8 +190,7 @@ function loanBook(e){
       UI.loadingAnimation.style.display = "block";
    sendData(query_url, dataToSend)
     .then(response => {
-             
-  
+         
       // msg if loaned successfully
       setTimeout(function(){
         UI.loadingAnimation.style.display = "none";

@@ -59,37 +59,53 @@ if (currentLocation == "/loans.html"){
 
 // GET request
 async function getData(query){
-  const response = await fetch(base_url+query);
-  const data = response.json()
-
-  return data
+  try{
+    const response = await fetch(base_url+query);
+    const data = response.json()
+    return data
+  }
+  catch(e){
+    console.log('Error!', e);
+  }
 }
+
 // POST request
 async function sendData(url, inputData){
-  const response = await fetch(url, {
-    method: "POST",
-    body: JSON.stringify(inputData),
-    headers:{
-      'Content-Type': 'application/json'
-      }
-    });
+  try{
+    const response = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(inputData),
+      headers:{
+        'Content-Type': 'application/json'
+        }
+      });
+    
+    const data = await response.json()
+    return data
+  }
+  catch(e){
+    console.log('Error!', e);
+  }
   
-  const data = await response.json()
-  return data
 }
 
 // PUT request
 async function updateData(url, inputData){
-  const response = await fetch(url, {
-    method: "PUT",
-    body: JSON.stringify(inputData),
-    headers:{
-      'Content-Type': 'application/json'
-      }
-    });
-  
-  const data = await response.json()
-  return data
+  try{
+    const response = await fetch(url, {
+      method: "PUT",
+      body: JSON.stringify(inputData),
+      headers:{
+        'Content-Type': 'application/json'
+        }
+      });
+    
+    const data = await response.json()
+    return data
+  }
+  catch(e){
+    console.log('Error!', e);
+  }
 }
 
 // ======= message and animation ============

@@ -9,8 +9,7 @@ function addUser(e){
     barcode: UI.userBarcodeInput.value,
     memberType: UI.userMemberTypeInput.value
   }
-  let status;
-
+ 
   // disable submit button to prevent double submission
   UI.addUserBtn.setAttribute('disabled', 'disabled');
   //show loading animation
@@ -18,17 +17,12 @@ function addUser(e){
 
   sendData(queryUrl, userData)
     .then( () => {
-      
-      status = true;
-      
       //remove animation and clear input after 3sec, show message afterwards
       setTimeout(function(){
-       
         // reset form
         UI.addForm.reset();
-       
         UI.loadingAnimation.style.display = "none";
-        showMessage("User added successfully!", status);
+        showMessage("User added successfully!");
 
         // "undisable add button"
         UI.addUserBtn.disabled = false;
@@ -37,20 +31,16 @@ function addUser(e){
     })
     .catch((err => {
       console.log(err);
-      status = false;
-      
+            
       //remove message after 3sec
       setTimeout(function(){
         // reset form
         UI.addForm.reset();
-
         UI.loadingAnimation.style.display = "none";
-        showMessage("Oops, something went wrong!!", status);
+        showMessage("Oops, something went wrong!!", false);
      }, 3000);
-      
     }
     ));
-        
   e.preventDefault();
 }
 
