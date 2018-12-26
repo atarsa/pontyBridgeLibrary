@@ -1,22 +1,15 @@
 var gulp = require('gulp'),
-    jshint = require('gulp-jshint'),
     sass = require('gulp-sass'),
     concat = require('gulp-concat'),
     browserSync = require('browser-sync').create(),
     nunjucksRender = require('gulp-nunjucks-render'),
-    del = require('del');
+    del = require('del')
+    autoprefixer = require('gulp-autoprefixer');
 
 
 // define the default task and watch task to it
 gulp.task('default', ['watch']);
 
-
-// configure the jshint task
-gulp.task('jshint', function(){
-  return gulp.src('./app/js/**/*.js')
-    .pipe(jshint())
-    .pipe(jshint.reporter('jshint-stylish'));
-});
 
 
 // configure nunjucks templating task
@@ -27,7 +20,7 @@ gulp.task('nunjucks', function(){
   .pipe(nunjucksRender({
       path: ['app/source/templates']
     }))
-  // output files in app folder
+  // output files in app folder 
   .pipe(gulp.dest('app'))
   .pipe(browserSync.reload({
     stream: true
@@ -36,18 +29,19 @@ gulp.task('nunjucks', function(){
 
 // clean all.js before re-build
 gulp.task('clean-js', function(){
-  return del('app/source/js/all.js');
+  return del('app/js/all.js');
 });
 
 gulp.task('scripts', ['clean-js'], function(){
-  return gulp.src(['app/source/js/uiVars.js', 'app/source/js/main.js', 'app/source/js/**/*.js'])
+  return gulp.src(['app/source/js/uiVars.js', 'app/source/js/main.js', 'app/source/js/**/*.js']) // add proper order of files
     .pipe(concat('all.js'))
-    .pipe(gulp.dest('app/source/js'));
+    .pipe(gulp.dest('app/js'));
 });
 
 gulp.task('sass', function(){
   return gulp.src('app/source/scss/**/*.scss') // gets all scss files
     .pipe(sass()) // Using gulp-sass
+    .pipe(autoprefixer()) // add prefixes to css
     .pipe(gulp.dest('app/css'))
     .pipe(browserSync.reload({
       stream: true
@@ -62,12 +56,10 @@ gulp.task('browserSync', function(){
   })
 });
 
-// Gulp watch syntax
-// gulp.watch('app/scss/**/*.scss', ['sass']);
 
-// To watch more than one task:
+
+// Watch more than one task:
 gulp.task('watch', ['browserSync', 'sass', 'nunjucks', 'scripts'], function(){
-  //gulp.watch('source/javascript/**/*.js', ['jshint']);
   gulp.watch('app/source/scss/**/*.scss', ['sass']);
   gulp.watch('app/source/**/*.njk', ['nunjucks']);
   gulp.watch('app/source/js/**/*.js', ['scripts']);
@@ -76,3 +68,4 @@ gulp.task('watch', ['browserSync', 'sass', 'nunjucks', 'scripts'], function(){
   gulp.watch('app/*.html', browserSync.reload);
   gulp.watch('app/source/js/**/*.js', browserSync.reload);
 });
+
