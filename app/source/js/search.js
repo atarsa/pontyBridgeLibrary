@@ -42,7 +42,8 @@ function search(e){
 function showResults(results) {
   
   UI.showSearchResults.innerHTML = "";
-  document.getElementById('search').value = "";
+  //document.getElementById('search').value = "";
+  UI.searchForm.reset();
   if (results.length !== 0){
     for (let result of results){
       let id = result.id;
@@ -170,7 +171,7 @@ function updateUser(target){
         .then(response => {
           console.log('Success:', JSON.stringify(response));
           updateUserForm.style.display = "none";
-          UI.showSearchResults. innerHTML = "";
+          UI.showSearchResults.innerHTML = "";
           UI.loadingAnimation.style.display = "block";
 
           //remove animation and clear input after 3sec, show message afterwards

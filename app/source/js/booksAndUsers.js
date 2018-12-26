@@ -40,16 +40,18 @@ function showUsers(){
 
 // Show all books on books.html
 function showBooks(){
- 
-  getData(books_url)
+ let url = books_url + '?allEntities=true'
+  getData(url)
     .then(books => {
               
       for (let book of books){
         let li = document.createElement('li');
         li.setAttribute("data-bookId", book.id);
-        li.setAttribute("class", "show-search-results__item--book show-search-results__item")
-               
+        li.setAttribute("class", "show-search-results__item--user show-search-results__item")
+         
+        
         li.innerHTML = `<span>${book.title}</span>
+                        <span>${book.Authors[0] ? book.Authors[0].name : "no author"}</span>
                         <span>${book.isbn}</span>`;
 
         const deleteElm = document.createElement('a');
@@ -72,6 +74,9 @@ function showBooks(){
         UI.showSearchResults.appendChild(li);
       }
   })
+  .catch(err => {console.log(err)}
+
+  )
 }
 
 // filter through results on books.html / users.html

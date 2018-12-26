@@ -95,8 +95,8 @@ function showBooksResults(books){
   //get all books already on loan
   let booksOnLoan = [];
     
-  //UI.showSearchResults.innerHTML = "";
-  UI.bookInput.value = "";
+  // reset form
+  UI.bookSearchForm.reset();
 
   if (books.length !== 0){
     // GET request to all loans

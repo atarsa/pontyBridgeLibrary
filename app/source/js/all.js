@@ -7,19 +7,16 @@ const UI = {
   loadingAnimation: document.querySelector('.loading-animation'),
   
   // --- homePage ---
-  books_count: document.getElementById('books-count'),
-  users_count: document.getElementById('users-count'),
+  booksCount: document.getElementById('books-count'),
+  booksAvailable: document.getElementById('books-av-count'),
+  usersCount: document.getElementById('users-count'),
   
   // --- Users Page ---
   userSearchInput: document.getElementById('js-user-search'),
   
   // --- Books Page ---
   bookSearchInput: document.getElementById('js-book-search'),
-  
-  // --- HomePage ---
-  books_count: document.getElementById('books-count'),
-  users_count: document.getElementById('users-count'),
-
+    
   // --- addBook Page ---
   addBookBtn: document.getElementById('js-add-book'),
   addBookForm: document.getElementById('js-add-book-form'),
@@ -183,7 +180,8 @@ function addBook(e){
   // Send POST request with book title and isbn, await response to get the book id
   let queryUrl = base_url+books_url;
   let bookData = {title: inputTitle.value,
-              isbn: inputISBN.value}
+              isbn: inputISBN.value};
+
   let authorData = {name: inputAuthor.value}
   console.log(queryUrl);
   
@@ -204,11 +202,9 @@ function addBook(e){
              //remove animation and clear input after 3sec, show message afterwards
             setTimeout(function(){
             
-              // clear input
-              inputTitle.value = "";
-              inputISBN.value = "";
-              inputAuthor.value = "";
-
+              // reset form
+              UI.addBookForm.reset();
+           
               UI.loadingAnimation.style.display = "none";
               showMessage("Book added successfully", status);
               UI.addBookBtn.disabled = false;
@@ -253,11 +249,9 @@ function addUser(e){
       //remove animation and clear input after 3sec, show message afterwards
       setTimeout(function(){
        
-        // clear input
-        UI.userNameInput.value = " ";
-        UI.userBarcodeInput.value = " ";
-        UI.userMemberTypeInput.value = " ";
-
+        // reset form
+        UI.addForm.reset();
+       
         UI.loadingAnimation.style.display = "none";
         showMessage("User added successfully!", status);
 
@@ -272,13 +266,10 @@ function addUser(e){
       
       //remove message after 3sec
       setTimeout(function(){
-        // clear input
-        UI.userNameInput.value = " ";
-        UI.userBarcodeInput.value = " ";
-        UI.userMemberTypeInput.value = " ";
+        // reset form
+        UI.addForm.reset();
 
         UI.loadingAnimation.style.display = "none";
-        
         showMessage("Oops, something went wrong!!", status);
      }, 3000);
       
@@ -331,16 +322,18 @@ function showUsers(){
 
 // Show all books on books.html
 function showBooks(){
- 
-  getData(books_url)
+ let url = books_url + '?allEntities=true'
+  getData(url)
     .then(books => {
               
       for (let book of books){
         let li = document.createElement('li');
         li.setAttribute("data-bookId", book.id);
-        li.setAttribute("class", "show-search-results__item--book show-search-results__item")
-               
+        li.setAttribute("class", "show-search-results__item--user show-search-results__item")
+         
+        
         li.innerHTML = `<span>${book.title}</span>
+                        <span>${book.Authors[0] ? book.Authors[0].name : "no author"}</span>
                         <span>${book.isbn}</span>`;
 
         const deleteElm = document.createElement('a');
@@ -363,6 +356,9 @@ function showBooks(){
         UI.showSearchResults.appendChild(li);
       }
   })
+  .catch(err => {console.log(err)}
+
+  )
 }
 
 // filter through results on books.html / users.html
@@ -383,15 +379,11 @@ function filterResults(e){
 // get Books and Users count for HomePage
 function getHomePageData(){
   try{
-    
-    // get books count
-    getData(books_url).then(books => {
-      UI.books_count.innerHTML= books.length;
-    })
-    
-    // get users count
-    getData(users_url).then(users =>{
-      UI.users_count.innerHTML= users.length;
+      
+      getData("/").then(info => {
+        UI.booksCount.innerHTML = info.books;
+        UI.booksAvailable.innerHTML = info.books - info.loans;
+        UI.usersCount.innerHTML = info.users;
     })
  } catch(err){
   console.log(err);}
@@ -494,8 +486,8 @@ function showBooksResults(books){
   //get all books already on loan
   let booksOnLoan = [];
     
-  //UI.showSearchResults.innerHTML = "";
-  UI.bookInput.value = "";
+  // reset form
+  UI.bookSearchForm.reset();
 
   if (books.length !== 0){
     // GET request to all loans
@@ -674,7 +666,8 @@ function search(e){
 function showResults(results) {
   
   UI.showSearchResults.innerHTML = "";
-  document.getElementById('search').value = "";
+  //document.getElementById('search').value = "";
+  UI.searchForm.reset();
   if (results.length !== 0){
     for (let result of results){
       let id = result.id;
@@ -802,7 +795,7 @@ function updateUser(target){
         .then(response => {
           console.log('Success:', JSON.stringify(response));
           updateUserForm.style.display = "none";
-          UI.showSearchResults. innerHTML = "";
+          UI.showSearchResults.innerHTML = "";
           UI.loadingAnimation.style.display = "block";
 
           //remove animation and clear input after 3sec, show message afterwards

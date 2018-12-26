@@ -7,19 +7,16 @@ const UI = {
   loadingAnimation: document.querySelector('.loading-animation'),
   
   // --- homePage ---
-  books_count: document.getElementById('books-count'),
-  users_count: document.getElementById('users-count'),
+  booksCount: document.getElementById('books-count'),
+  booksAvailable: document.getElementById('books-av-count'),
+  usersCount: document.getElementById('users-count'),
   
   // --- Users Page ---
   userSearchInput: document.getElementById('js-user-search'),
   
   // --- Books Page ---
   bookSearchInput: document.getElementById('js-book-search'),
-  
-  // --- HomePage ---
-  books_count: document.getElementById('books-count'),
-  users_count: document.getElementById('users-count'),
-
+    
   // --- addBook Page ---
   addBookBtn: document.getElementById('js-add-book'),
   addBookForm: document.getElementById('js-add-book-form'),

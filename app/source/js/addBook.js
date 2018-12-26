@@ -13,7 +13,8 @@ function addBook(e){
   // Send POST request with book title and isbn, await response to get the book id
   let queryUrl = base_url+books_url;
   let bookData = {title: inputTitle.value,
-              isbn: inputISBN.value}
+              isbn: inputISBN.value};
+
   let authorData = {name: inputAuthor.value}
   console.log(queryUrl);
   
@@ -34,11 +35,9 @@ function addBook(e){
              //remove animation and clear input after 3sec, show message afterwards
             setTimeout(function(){
             
-              // clear input
-              inputTitle.value = "";
-              inputISBN.value = "";
-              inputAuthor.value = "";
-
+              // reset form
+              UI.addBookForm.reset();
+           
               UI.loadingAnimation.style.display = "none";
               showMessage("Book added successfully", status);
               UI.addBookBtn.disabled = false;

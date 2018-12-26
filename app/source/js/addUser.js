@@ -24,11 +24,9 @@ function addUser(e){
       //remove animation and clear input after 3sec, show message afterwards
       setTimeout(function(){
        
-        // clear input
-        UI.userNameInput.value = " ";
-        UI.userBarcodeInput.value = " ";
-        UI.userMemberTypeInput.value = " ";
-
+        // reset form
+        UI.addForm.reset();
+       
         UI.loadingAnimation.style.display = "none";
         showMessage("User added successfully!", status);
 
@@ -43,13 +41,10 @@ function addUser(e){
       
       //remove message after 3sec
       setTimeout(function(){
-        // clear input
-        UI.userNameInput.value = " ";
-        UI.userBarcodeInput.value = " ";
-        UI.userMemberTypeInput.value = " ";
+        // reset form
+        UI.addForm.reset();
 
         UI.loadingAnimation.style.display = "none";
-        
         showMessage("Oops, something went wrong!!", status);
      }, 3000);
       
