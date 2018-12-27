@@ -105,6 +105,7 @@ function showResults(results) {
      
   } else {
     let li = document.createElement('li');
+    li.setAttribute("class", "li--no-results");
     li.innerText = "Sorry, no results found";
     UI.showSearchResults.appendChild(li);
   }
@@ -142,7 +143,7 @@ function updateUser(target){
   const updateUserForm = document.querySelector('.form--update-user');
   const updateName = document.getElementById('js-update-name');
   const updateMemberType = document.getElementById('js-update-member-type');
-  const updateUserBtn = document.getElementById('js-update-user');
+  const updateUserBtn = document.getElementById('js-update-user-submit');
   
   updateUserForm.style.display = "grid";
  // get user info
@@ -244,7 +245,7 @@ function deleteItem(itemType,target){
         }
 
       }, 6000);
-  }
+   }
 }
 
 async function showLoanInfo(target){

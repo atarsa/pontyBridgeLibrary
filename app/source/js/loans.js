@@ -174,6 +174,7 @@ function getUserLoanedBooks(){
 function loanBook(e){
   let target = e.target.parentElement.parentElement; 
   // get book id
+  
   let bookID = target.attributes[0].value;
   let dueDate = generateDueDate();
   let dataToSend = {dueDate: dueDate};

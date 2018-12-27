@@ -24,7 +24,7 @@ function addUser(e){
         UI.loadingAnimation.style.display = "none";
         showMessage("User added successfully!");
 
-        // "undisable add button"
+        // "undisable" add button
         UI.addUserBtn.disabled = false;
      }, 3000);
       
