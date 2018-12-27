@@ -21,7 +21,7 @@ Functionality available in librarian zone on "/search.html" and also on "/users.
 
 Functionality available in librarian zone on "/search.html" and on "/users.html". To modify a user pen icon should be clicked. Update Form will be populated with appropriate values.  
 
-![user loans login](../screenshots/modifyuser.png)
+![user loans login](screenshots/modifyuser.png)
 
 
 - [x] U4 - Remove a User
@@ -51,18 +51,19 @@ Functionalities available in user zone on "/loans.html". User must first "login"
 User then can search for a book (by title) and loan it if the book is available by clicking on plus icon. If book is unavailable clicking is disabled. Due Date is generated for next 14 days. 
 
 
-![user loans screenshot](../screenshots/loans3.png)
+![user loans screenshot](screenshots/loans3.png)
 
 - [x] L3 - Get the User currently borrowing a Book
 
 Functionality available in librarian zone on "/search.html" and also on "/books.html" where all books records are listed. To check if book is available info icon should be clicked.
  
 
-![user loans login](../screenshots/loaned1.png)
+![user loans login](screenshots/loaned1.png)
 
 Extra functionality:
 On Home Page ("/index.html") library records count are shown. 
 I added index route to server code to minify requests to get this data. 
-![homePageScreenShot](../screenshots/homepage2.png)
+
+![homePageScreenShot](screenshots/homepage2.png)
 
 On "users.html" and "books.html" where all records are listed to search through results instead of making another request to server, filter function has been implemented.
