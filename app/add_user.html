@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>PontyBridge University Library: Add New User</title>
+  
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  
+  <link href="https://fonts.googleapis.com/css?family=Quattrocento+Sans" rel="stylesheet"> 
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <div class="container">
+    <header class="top-header">
+      <div class="logo">
+        <i class="fas fa-book"> </i>
+       
+       <h2>
+        <a href="/index.html" > 
+               PontyBridge University<br> Library</a>
+       </h2>        
+      </div>
+    </header>
+  
+   
+
+  <!-- Adds the navigation partial -->
+  <!-- navigation.nunjucks -->
+  <nav >
+    <div class="nav-container">
+      <div class="nav-container__elm">
+        <a href="index.html" >HomePage</a>
+      </div>
+      
+      <div class="dropdown nav-container__elm">
+          <button class="dropbtn">Librarian Zone
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a href="books.html">All Books</a>
+            <a href="users.html">All Users</a>
+            <a href="add_book.html">Add new book</a>
+            <a href="add_user.html">Add new user</a>
+            <a href="search.html">Search</a>
+          </div>
+      </div> 
+      <div class="dropdown nav-container__elm">
+          <button class="dropbtn">User Zone
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a href="loans.html">Loans</a>
+          </div>
+      </div> 
+   
+  </div> <!-- end .nav-container -->
+ </nav>    
+   
+    
+  <div class="main-content">
+
+    <form class="add-form">
+      <div class="add-form__elm"> 
+        <label for="js-full-name">Full Name:</label>
+        <input type="text" id="js-full-name" name="name" placeholder="John Doe" required>
+      </div>
+      <div class="add-form__elm">
+        <label for="js-barcode">Barcode:</label>
+        <input type="text" id="js-barcode" name="barcode" required pattern="\d{5,}" placeholder="12345">
+      </div>
+      <div class="add-form__elm">
+        <label for="js-member-type">Member type:</label>
+        <select id="js-member-type" name="memberType" class="add-form__elm--select">  
+          <option value="Student" selected>Student</option>
+          <option value="Staff">Staff</option>
+        </select>
+      </div>
+      <div class="add-form__elm">
+        <input type="submit" id="js-add-user" value="Submit" class="btn">
+      </div>
+    </form>
+    
+    <!-- Adds animation partial -->
+   <!-- animation.njk -->
+<div class="loading-animation">
+  <span class="circle circle--1"></span>
+  <span class="circle circle--2"></span>
+  <span class="circle circle--3"></span>
+</div>
+<div class="message">
+
+Message
+</div>
+  </div>
+
+
+    <footer>
+      <div class="footer-container">
+        <h5 class="logo--footer"> 
+          PontyBridge University 
+        </h5>
+        <div class="footer-icons">
+            <a href="#" class="footer-icons__elm">  
+              <i class="fab fa-twitter-square"></i>
+            </a>
+            <a href="#" class="footer-icons__elm">
+              <i class="fab fa-facebook-square"></i>
+            </a>
+            <a href="#" class="footer-icons__elm">
+              <i class="fab fa-instagram"></i>
+            </a>
+        </div>
+      
+     </div>    
+      
+    </footer>
+  </div> <!-- end of .container -->
+  <!-- add js file -->
+  <script src="js/all.js"></script>
+
+  
+</body>
+</html>
